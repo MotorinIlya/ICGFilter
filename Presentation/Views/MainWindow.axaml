@@ -98,6 +98,7 @@
                             HorizontalAlignment="Left"
                             Spacing="4"
                             x:Name="Buttons">
+                    <ToggleButton x:Name="Inverse" Command="{Binding SetInverseFilter}">inverse</ToggleButton>
                 </StackPanel>
             </Grid>
         </Border>
