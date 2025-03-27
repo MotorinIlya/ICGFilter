@@ -1,16 +1,19 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
 using ICGFilter.Presentation.ViewModels;
 using ICGFilter.Presentation.Views;
+using System;
+using System.ComponentModel.Design;
+using ICGFilter.Applications;
 
 namespace ICGFilter.Presentation;
 
 public partial class App : Application
 {
+    private ServiceContainer _services = new();
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -23,10 +26,15 @@ public partial class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainWindowViewModel(),
-            };
+
+            var mainWindow = new MainWindow();
+            var fileApp = new FileApp(mainWindow);
+            var panelApp = new PanelApp(mainWindow.PhotoPanel);
+            var viewModel = new MainWindowViewModel(fileApp, panelApp); 
+
+            mainWindow.DataContext = viewModel;
+
+            desktop.MainWindow = mainWindow;
         }
 
         base.OnFrameworkInitializationCompleted();

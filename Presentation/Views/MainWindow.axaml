@@ -15,6 +15,98 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Window.Styles>
+        <Style Selector="ToggleButton">
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="8 4"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
 
+        <Style Selector="ToggleButton:checked">
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="BorderBrush" Value="#005F9E"/>
+        </Style>
+
+        <Style Selector="ToggleButton:hover">
+            <Setter Property="Background" Value="#3D3D3D"/>
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="8 4"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style Selector="Button:hover">
+            <Setter Property="Background" Value="#3D3D3D"/>
+        </Style>
+
+        <Style Selector="Button.color-button">
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="2 0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="File">
+                    <MenuItem Header="Load" Click="OpenShowLoadDialog"/>
+                    <MenuItem Header="Save" Click="ShowSaveDialog"/>
+                </MenuItem>
+                <MenuItem Header="Edit">
+                    <MenuItem Header="Filters"/>
+                    <MenuItem Header="Clear"/>
+                </MenuItem>
+                <MenuItem Header="About"/>
+            </Menu>
+        </DockPanel>
+
+        <Border Grid.Row="1"
+                Background="#252526" 
+                Height="48"
+                BorderBrush="#333333"
+                BorderThickness="0 0 0 1">
+
+            <Grid Margin="8 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" 
+                            Grid.Column="0"
+                            HorizontalAlignment="Left"
+                            Spacing="4"
+                            x:Name="Buttons">
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2"
+                x:Name="photo">
+            <ScrollViewer x:Name="scrol"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto"/>
+        </Grid>
+    </Grid>
 </Window>
