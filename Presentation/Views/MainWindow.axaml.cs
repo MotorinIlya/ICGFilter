@@ -2,7 +2,6 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
-using ICGFilter.Domain.Enums;
 using ICGFilter.Presentation.ViewModels;
 
 namespace ICGFilter.Presentation.Views;

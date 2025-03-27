@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Avalonia.Platform.Storage;
 using ICGFilter.Applications;
-using ICGFilter.Domain.Enums;
 using ReactiveUI;
 
 namespace ICGFilter.Presentation.ViewModels;
