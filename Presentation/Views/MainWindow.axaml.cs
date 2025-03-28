@@ -8,18 +8,19 @@ namespace ICGFilter.Presentation.Views;
 
 public partial class MainWindow : Window
 {
-    private PhotoPanel _photoPanel = new();
+    private PhotoPanel _photoPanel;
     public PhotoPanel PhotoPanel => _photoPanel;
     public MainWindow()
     {
         InitializeComponent();
+        _photoPanel = new(Scroll);
 
         Loaded += (s, e) => 
         {
             var height = (int)mainGrid.RowDefinitions[2].ActualHeight;
             var width = (int)Width;
             _photoPanel.SetBitmap(width, height);
-            scrol.Content = _photoPanel;
+            Scroll.Content = _photoPanel;
         };
     }
 

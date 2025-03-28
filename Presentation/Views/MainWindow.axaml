@@ -98,14 +98,16 @@
                             HorizontalAlignment="Left"
                             Spacing="4"
                             x:Name="Buttons">
-                    <ToggleButton x:Name="Inverse" Command="{Binding SetInverseFilter}">inverse</ToggleButton>
+                    <RadioButton x:Name="Inverse" 
+                            Command="{Binding SetInverseFilter}" 
+                            GroupName="filters">inverse</RadioButton>
                 </StackPanel>
             </Grid>
         </Border>
 
         <Grid Grid.Row="2"
                 x:Name="photo">
-            <ScrollViewer x:Name="scrol"
+            <ScrollViewer x:Name="Scroll"
                     HorizontalScrollBarVisibility="Auto"
                     VerticalScrollBarVisibility="Auto"/>
         </Grid>

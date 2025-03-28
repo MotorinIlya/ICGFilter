@@ -1,14 +1,17 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using ICGFilter.Domain.Repository;
 
 namespace ICGFilter.Presentation.Views;
 
 public class PhotoPanel : UserControl
 {
     private WriteableBitmap _bitmap;
+    private ScrollRepository _scroll;
     public WriteableBitmap Bitmap 
     {
         get => _bitmap;
@@ -19,13 +22,14 @@ public class PhotoPanel : UserControl
         }
     }
 
-    public PhotoPanel()
+    public PhotoPanel(ScrollViewer scroll)
     {
         _bitmap = new(
             new PixelSize(10, 10),
             new Vector(96, 96),
             PixelFormat.Bgra8888,
             AlphaFormat.Opaque);
+        _scroll = new(new(0, 0), scroll);
     }
 
     public override void Render(DrawingContext context)
@@ -55,6 +59,49 @@ public class PhotoPanel : UserControl
             ptr[i + 1] = 255;
             ptr[i + 2] = 255;
             ptr[i + 3] = 255;
+        }
+    }
+
+    protected override void OnPointerPressed(PointerPressedEventArgs e)
+    {
+        base.OnPointerPressed(e);
+        
+        if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+        {
+            _scroll.LastPressedPoint = e.GetPosition(_scroll.ScrollViewer);
+            _scroll.IsPanning = true;
+            e.Pointer.Capture(this);
+            e.Handled = true;
+        }
+    }
+
+    protected override void OnPointerMoved(PointerEventArgs e)
+    {
+        base.OnPointerMoved(e);
+        
+        if (_scroll.IsPanning && e.Pointer.Captured == this)
+        {
+            var currentPosition = e.GetPosition(_scroll.ScrollViewer);
+            var offset = _scroll.ScrollViewer.Offset;
+            
+            _scroll.ScrollViewer.Offset = new Vector(
+                offset.X + (_scroll.LastPressedPoint.X - currentPosition.X),
+                offset.Y + (_scroll.LastPressedPoint.Y - currentPosition.Y));
+                
+            _scroll.LastPressedPoint = currentPosition;
+            e.Handled = true;
+        }
+    }
+
+    protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    {
+        base.OnPointerReleased(e);
+        
+        if (_scroll.IsPanning && e.Pointer.Captured == this)
+        {
+            _scroll.IsPanning = false;
+            e.Pointer.Capture(null);
+            e.Handled = true;
         }
     }
 }
