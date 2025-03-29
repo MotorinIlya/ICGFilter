@@ -14,4 +14,6 @@ public class BitmapService
             PixelFormat.Bgra8888,
             AlphaFormat.Opaque);
     }
+
+    public static int GetOffset(int x, int y, int rowBytes) => y * rowBytes + x * 4;
 }

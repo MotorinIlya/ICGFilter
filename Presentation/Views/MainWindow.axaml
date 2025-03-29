@@ -108,6 +108,9 @@
                     <RadioButton x:Name="Inverse" 
                             Command="{Binding SetInverseFilter}" 
                             GroupName="filters">inverse</RadioButton>
+                    <RadioButton x:Name="BlackWhite"
+                            Command="{Binding SetBlackWhiteFilter}"
+                            GroupName="filters">Black White</RadioButton>
                 </StackPanel>
             </Grid>
         </Border>

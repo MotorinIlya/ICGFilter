@@ -6,9 +6,10 @@ namespace ICGFilter.Applications;
 public class FilterApp
 {
     private FilterRepository _filters = new();
-    public WriteableBitmap SetInverseFilter(WriteableBitmap bitmap)
+
+    public WriteableBitmap GetFilter(WriteableBitmap bitmap, FilterName filterName)
     {
-        var filter = _filters.GetFilter(FilterName.Inversion);
+        var filter = _filters.GetFilter(filterName);
         return filter.Apply(bitmap);
     }
 }

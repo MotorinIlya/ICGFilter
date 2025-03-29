@@ -8,6 +8,7 @@ public class FilterRepository
     private readonly Dictionary<FilterName, IImageFilter> _filters = new()
     {
         {FilterName.Inversion, new InversionFilter()},
+        {FilterName.BlackWhite, new BlackWhiteFilter()},
     };
 
     public IImageFilter GetFilter(FilterName filterName) => _filters[filterName];

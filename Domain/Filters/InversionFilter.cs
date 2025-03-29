@@ -21,7 +21,7 @@ public class InversionFilter : IImageFilter
             for (var y = 0; y < buf.Size.Height; y++)
             {
                 byte inv = 255;
-                var offset = y * buf.RowBytes + x * 4;
+                var offset = BitmapService.GetOffset(x, y, buf.RowBytes);
                 (var r, var g, var b) = ColorService.GetColor(ptr, offset);
                 ColorService.SetColor(invPtr, offset, 
                     (byte)(inv - r), (byte)(inv - g), (byte)(inv - b));

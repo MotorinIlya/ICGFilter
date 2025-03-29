@@ -24,14 +24,11 @@ public partial class MainWindowViewModel : ReactiveObject
             _panelApp.ChangeBitmap(bitmap);
         }
     }
-    public ReactiveCommand<Unit, Unit> InverseCommand { get; }
 
     public MainWindowViewModel(FileApp fileApp, PanelApp panelApp)
     {
         _fileApp = fileApp;
         _panelApp = panelApp;
-
-        InverseCommand = ReactiveCommand.Create(SetInverseFilter);
     }
 
     public async Task LoadFile(IStorageFile file)
@@ -47,7 +44,17 @@ public partial class MainWindowViewModel : ReactiveObject
 
     public void SetInverseFilter()
     {
-        var invBitmap = _filterApp.SetInverseFilter(_panelApp.GetBitmap());
+        var invBitmap = _filterApp.GetFilter(
+                _panelApp.GetBitmap(), 
+                FilterName.Inversion);
         _panelApp.ChangeBitmap(invBitmap);
+    }
+
+    public void SetBlackWhiteFilter()
+    {
+        var bwBitmap = _filterApp.GetFilter(
+                _panelApp.GetBitmap(), 
+                FilterName.BlackWhite);
+        _panelApp.ChangeBitmap(bwBitmap);
     }
 }
