@@ -11,6 +11,7 @@ namespace ICGFilter.Presentation.Views;
 public class PhotoPanel : UserControl
 {
     private WriteableBitmap _bitmap;
+    private WriteableBitmap _originalBitmap;
     private ScrollRepository _scroll;
     public WriteableBitmap Bitmap 
     {
@@ -18,6 +19,16 @@ public class PhotoPanel : UserControl
         set
         {
             _bitmap = value;
+            InvalidateVisual();
+        }
+    }
+    public WriteableBitmap OriginalBitmap
+    {
+        get => _originalBitmap;
+        set
+        {
+            _bitmap = value;
+            _originalBitmap = value;
             InvalidateVisual();
         }
     }
@@ -29,6 +40,7 @@ public class PhotoPanel : UserControl
             new Vector(96, 96),
             PixelFormat.Bgra8888,
             AlphaFormat.Opaque);
+        _originalBitmap = _bitmap;
         _scroll = new(new(0, 0), scroll);
     }
 
@@ -39,6 +51,16 @@ public class PhotoPanel : UserControl
         context.DrawImage(_bitmap, 
                 new Rect(0, 0, _bitmap.PixelSize.Width, 
                 _bitmap.PixelSize.Height));
+    
+            var pen = new Pen
+            {
+                Brush = Brushes.Red,
+                Thickness = 2,
+                DashStyle = new DashStyle(new[] { 10.0, 10.0 }, 0)
+            };
+
+            var borderRect = new Rect(0, 0, Bounds.Width, Bounds.Height);
+            context.DrawRectangle(null, pen, borderRect);
     }
 
     public unsafe void SetBitmap(int width, int height)
@@ -50,7 +72,7 @@ public class PhotoPanel : UserControl
             new Vector(96, 96),
             PixelFormat.Bgra8888,
             AlphaFormat.Opaque);
-
+        _originalBitmap = _bitmap;
         using var buffer = _bitmap.Lock();
         var ptr = (byte*)buffer.Address.ToPointer();
         for (int i = 0; i < buffer.Size.Width * buffer.Size.Height * 4; i += 4)

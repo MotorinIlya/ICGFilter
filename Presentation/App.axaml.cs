@@ -30,8 +30,7 @@ public partial class App : Application
             var mainWindow = new MainWindow();
             var fileApp = new FileApp(mainWindow);
             var panelApp = new PanelApp(mainWindow.PhotoPanel);
-            var filterApp = new FilterApp();
-            var viewModel = new MainWindowViewModel(fileApp, panelApp, filterApp); 
+            var viewModel = new MainWindowViewModel(fileApp, panelApp); 
 
             mainWindow.DataContext = viewModel;
 

@@ -98,6 +98,13 @@
                             HorizontalAlignment="Left"
                             Spacing="4"
                             x:Name="Buttons">
+                    <Slider Minimum="-180"
+                            Maximum="180"
+                            Value="{Binding ValueTurnSlider}"
+                            Width="120"/>
+                    <TextBlock Text="{Binding ValueTurnSlider}"
+                            Width="100"/>
+
                     <RadioButton x:Name="Inverse" 
                             Command="{Binding SetInverseFilter}" 
                             GroupName="filters">inverse</RadioButton>
