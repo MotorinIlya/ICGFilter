@@ -12,8 +12,6 @@ public class GammaSettingsViewModel : ReactiveObject
 {
     private double _gammaValue = 1.0;
     private FilterApp _filterApp;
-    private PanelApp _panelApp;
-    private TurnApp _turnApp;
     public double GammaValue
     {
         get => _gammaValue; 
@@ -21,13 +19,12 @@ public class GammaSettingsViewModel : ReactiveObject
     }
     public ReactiveCommand<Unit, Unit> ApplyCommand { get; }
     public ReactiveCommand<Unit, Unit> CancelCommand { get; }
-    public Interaction<Unit, Unit> CloseInteraction = new();
+    public Interaction<FilterName, Unit> CloseInteraction = new();
 
-    public GammaSettingsViewModel(FilterApp filterApp, PanelApp panelApp, TurnApp turnApp)
+    public GammaSettingsViewModel(FilterApp filterApp)
     {
         _filterApp = filterApp;
-        _panelApp = panelApp;
-        _turnApp = turnApp;
+        
         var canApply = this.WhenAnyValue(
             x => x.GammaValue,
             gamma => gamma >= 0.1 && gamma <= 5.0);
@@ -39,18 +36,12 @@ public class GammaSettingsViewModel : ReactiveObject
             {
                 gammaFilter.Gamma = _gammaValue;
             }
-            var bitmap = _filterApp.ApplyFilter(
-                        _panelApp.GetOriginalBitmap(), 
-                        FilterName.Gamma);
-            _panelApp.SetFiltredBitmap(bitmap);
-            _panelApp.ChangeBitmap(bitmap);
-            var turnBitmap = _turnApp.TurnImage(bitmap);
-            await CloseInteraction.Handle(Unit.Default);
+            await CloseInteraction.Handle(FilterName.Gamma);
         }, canExecute: canApply);
 
         CancelCommand = ReactiveCommand.CreateFromTask(async () => 
         { 
-            await CloseInteraction.Handle(Unit.Default);
+            await CloseInteraction.Handle(FilterName.Gamma);
         });
     }
 }

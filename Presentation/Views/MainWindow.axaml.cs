@@ -41,12 +41,12 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
                 action(ViewModel!.DialogInteraction.RegisterHandler(OpenDialog)));
     }
 
-    private async Task OpenDialog(IInteractionContext<WindowName, Unit> context)
+    private async Task OpenDialog(IInteractionContext<WindowName, FilterName> context)
     {
         var window = WindowFabric.CreateWindow(context.Input);
         window.DataContext = _container.GetModel(context.Input);
-        await window.ShowDialog(this);
-        context.SetOutput(Unit.Default);
+        var result = await window.ShowDialog<FilterName>(this);
+        context.SetOutput(result);
     }
 
 

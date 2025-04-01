@@ -3,6 +3,7 @@ using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.ReactiveUI;
+using ICGFilter.Domain.Repository;
 using ICGFilter.Presentation.ViewModels;
 using ReactiveUI;
 
@@ -23,9 +24,9 @@ public partial class GammaWindow : ReactiveWindow<GammaSettingsViewModel>
                 action(ViewModel!.CloseInteraction.RegisterHandler(CloseDialogAsync)));
     }
 
-    private void CloseDialogAsync(IInteractionContext<Unit, Unit> context)
+    private void CloseDialogAsync(IInteractionContext<FilterName, Unit> context)
     {
-        Close();
+        Close(context.Input);
         context.SetOutput(Unit.Default);
     }
 }

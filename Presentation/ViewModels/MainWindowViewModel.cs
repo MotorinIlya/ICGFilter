@@ -29,7 +29,7 @@ public partial class MainWindowViewModel : ReactiveObject
     }
 
     public ReactiveCommand<WindowName, Unit> OpenShowDialogCommand { get; }
-    public Interaction <WindowName, Unit> DialogInteraction = new();
+    public Interaction <WindowName, FilterName> DialogInteraction = new();
 
     public MainWindowViewModel(
             FileApp fileApp, 
@@ -47,7 +47,8 @@ public partial class MainWindowViewModel : ReactiveObject
 
     private async Task ShowDialogFilter(WindowName name)
     {
-        await DialogInteraction.Handle(name);
+        var result = await DialogInteraction.Handle(name);
+        SetFilter(result);
     }
 
     public async Task LoadFile(IStorageFile file)

@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using Avalonia.Controls;
 using ICGFilter.Applications;
 using ICGFilter.Domain.Repository;
 using ICGFilter.Presentation.ViewModels;
 using ICGFilter.Presentation.Views;
-using ICGFilter.Presentation.Views.Gamma;
 using ReactiveUI;
 
 namespace ICGFilter.Domain.Container;
@@ -26,13 +24,12 @@ public class WindowContainer
         var viewModel = new MainWindowViewModel(_fileApp, _panelApp, _filterApp, _turnApp); 
         _window.DataContext = viewModel;
         _models.Add(WindowName.MainWindow, viewModel);
-        //_windows.Add(WindowName.MainWindow, mainWindow);
         CreateGammaModel();
     }
 
     private void CreateGammaModel()
     {
-        var model = new GammaSettingsViewModel(_filterApp, _panelApp, _turnApp);
+        var model = new GammaSettingsViewModel(_filterApp);
         _models.Add(WindowName.GammaWindow, model);
     }
 }
