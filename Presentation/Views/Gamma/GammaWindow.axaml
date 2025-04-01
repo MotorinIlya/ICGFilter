@@ -7,8 +7,7 @@
         x:DataType="vm:GammaSettingsViewModel"
         Title="Gamma Correction"
         Width="300"
-        Height="200"
-        IsVisible="{Binding IsVisible}">
+        Height="200">
 
     <Design.DataContext>
         <vm:GammaSettingsViewModel/>

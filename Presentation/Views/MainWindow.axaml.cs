@@ -1,10 +1,13 @@
 using System;
+using System.Reactive;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using Avalonia.ReactiveUI;
 using ICGFilter.Domain.Container;
 using ICGFilter.Domain.Repository;
+using ICGFilter.Domain.Services;
 using ICGFilter.Presentation.ViewModels;
 using ReactiveUI;
 
@@ -28,16 +31,24 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
             _photoPanel.SetBitmap(width, height);
             Scroll.Content = _photoPanel;
         };
+
+        DataContextChanged += OpenFilterDialogAsync;
     }
 
-    public void OpenFilterDialog(object? sender, RoutedEventArgs e)
+    private void OpenFilterDialogAsync(object? sender, EventArgs e)
     {
-        if (sender is RadioButton radio && radio.Tag is WindowName name)
-        {
-            var window = _container.GetWindow(name);
-            window.Show();
-        }
+        this.WhenActivated(action => 
+                action(ViewModel!.DialogInteraction.RegisterHandler(OpenDialog)));
     }
+
+    private async Task OpenDialog(IInteractionContext<WindowName, Unit> context)
+    {
+        var window = WindowFabric.CreateWindow(context.Input);
+        window.DataContext = _container.GetModel(context.Input);
+        await window.ShowDialog(this);
+        context.SetOutput(Unit.Default);
+    }
+
 
     // написать сервис под эти методы
     private async void OpenShowLoadDialog(object? sender, RoutedEventArgs e)

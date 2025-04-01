@@ -1,5 +1,6 @@
 using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using ICGFilter.Applications;
 using ICGFilter.Domain.Filters;
 using ICGFilter.Domain.Repository;
@@ -18,14 +19,9 @@ public class GammaSettingsViewModel : ReactiveObject
         get => _gammaValue; 
         set => this.RaiseAndSetIfChanged(ref _gammaValue, value);
     }
-    private bool _isVisible = false;
-    public bool IsVisible
-    {
-        get => _isVisible;
-        set => this.RaiseAndSetIfChanged(ref _isVisible, value);
-    }
     public ReactiveCommand<Unit, Unit> ApplyCommand { get; }
     public ReactiveCommand<Unit, Unit> CancelCommand { get; }
+    public Interaction<Unit, Unit> CloseInteraction = new();
 
     public GammaSettingsViewModel(FilterApp filterApp, PanelApp panelApp, TurnApp turnApp)
     {
@@ -36,7 +32,7 @@ public class GammaSettingsViewModel : ReactiveObject
             x => x.GammaValue,
             gamma => gamma >= 0.1 && gamma <= 5.0);
 
-        ApplyCommand = ReactiveCommand.Create(() => 
+        ApplyCommand = ReactiveCommand.CreateFromTask(async () => 
         {
             var filter = _filterApp.GetFilter(FilterName.Gamma);
             if (filter is GammaFilter gammaFilter)
@@ -49,12 +45,12 @@ public class GammaSettingsViewModel : ReactiveObject
             _panelApp.SetFiltredBitmap(bitmap);
             _panelApp.ChangeBitmap(bitmap);
             var turnBitmap = _turnApp.TurnImage(bitmap);
-            IsVisible = false;
+            await CloseInteraction.Handle(Unit.Default);
         }, canExecute: canApply);
 
-        CancelCommand = ReactiveCommand.Create(() => 
+        CancelCommand = ReactiveCommand.CreateFromTask(async () => 
         { 
-            IsVisible = false;
+            await CloseInteraction.Handle(Unit.Default);
         });
     }
 }

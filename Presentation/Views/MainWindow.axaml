@@ -115,9 +115,10 @@
                             CommandParameter="{x:Static local:FilterName.BlackWhite}"
                             GroupName="filters">Black White</RadioButton>
                     <RadioButton x:Name="Gamma"
-                            Tag="{x:Static local:WindowName.GammaWindow}"
-                            Click="OpenFilterDialog"
-                            Content="Gamma"/>
+                            Command="{Binding OpenShowDialogCommand}"
+                            CommandParameter="{x:Static local:WindowName.GammaWindow}"
+                            Content="Gamma"
+                            GroupName="filters"/>
                             
                 </StackPanel>
             </Grid>

@@ -25,7 +25,7 @@ public partial class App : Application
             DisableAvaloniaDataAnnotationValidation();
 
             var container = new WindowContainer();
-            desktop.MainWindow = container.GetWindow(Domain.Repository.WindowName.MainWindow);
+            desktop.MainWindow = container.MainWin;
         }
 
         base.OnFrameworkInitializationCompleted();

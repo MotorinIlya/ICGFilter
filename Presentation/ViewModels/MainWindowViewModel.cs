@@ -1,5 +1,7 @@
 ﻿using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Avalonia.Platform.Storage;
 using ICGFilter.Applications;
 using ICGFilter.Domain.Repository;
@@ -26,6 +28,9 @@ public partial class MainWindowViewModel : ReactiveObject
         }
     }
 
+    public ReactiveCommand<WindowName, Unit> OpenShowDialogCommand { get; }
+    public Interaction <WindowName, Unit> DialogInteraction = new();
+
     public MainWindowViewModel(
             FileApp fileApp, 
             PanelApp panelApp, 
@@ -36,6 +41,13 @@ public partial class MainWindowViewModel : ReactiveObject
         _panelApp = panelApp;
         _filterApp = filterApp;
         _turnApp = turnApp;
+
+        OpenShowDialogCommand = ReactiveCommand.CreateFromTask<WindowName>(ShowDialogFilter);
+    }
+
+    private async Task ShowDialogFilter(WindowName name)
+    {
+        await DialogInteraction.Handle(name);
     }
 
     public async Task LoadFile(IStorageFile file)
