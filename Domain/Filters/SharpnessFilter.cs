@@ -8,9 +8,9 @@ public class SharpnessFitler : IImageFilter
 {
     private static readonly int[,] _kernel =
     {
-        {-1, -1, -1},
-        {-1, 9, -1},
-        {-1, -1, -1}
+        {0, -1, 0},
+        {-1, 5, -1},
+        {0, -1, 0}
     };
     public unsafe WriteableBitmap Apply(WriteableBitmap bitmap)
     {
