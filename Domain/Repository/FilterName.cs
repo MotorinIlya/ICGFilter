@@ -6,4 +6,5 @@ public enum FilterName
     BlackWhite,
     Gamma,
     Sharpness,
+    Embossing,
 }

@@ -4,5 +4,4 @@ public enum WindowName
 {
     MainWindow,
     GammaWindow,
-    SharpnessWindow,
 }

@@ -11,6 +11,7 @@ public class FilterRepository
         {FilterName.BlackWhite, new BlackWhiteFilter()},
         {FilterName.Gamma, new GammaFilter()},
         {FilterName.Sharpness, new SharpnessFitler()},
+        {FilterName.Embossing, new EmbossingFitler()},
     };
 
     public IImageFilter GetFilter(FilterName filterName) => _filters[filterName];

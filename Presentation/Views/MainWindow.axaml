@@ -124,6 +124,11 @@
                             CommandParameter="{x:Static local:FilterName.Sharpness}"
                             GroupName="filters"
                             Content="Sharpness"/>
+                    <RadioButton x:Name="Embossing"
+                            Command="{Binding SetFilter}"
+                            CommandParameter="{x:Static local:FilterName.Embossing}"
+                            GroupName="filters"
+                            Content="Embossing"/>
                             
                 </StackPanel>
             </Grid>
