@@ -5,9 +5,12 @@ namespace ICGFilter.Applications;
 
 public class TurnApp
 {
-    TurnService _turnService = new();
-    public WriteableBitmap TurnImage(WriteableBitmap bitmap, int angle)
+    private TurnService _turnService = new();
+    private int _turn;
+    public WriteableBitmap TurnImage(WriteableBitmap bitmap)
     {
-        return _turnService.RotateImage(bitmap, angle);
+        return _turnService.RotateImage(bitmap, _turn);
     }
+
+    public void SetValueTurn(int turn) => _turn = turn;
 }

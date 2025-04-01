@@ -12,7 +12,7 @@ public partial class MainWindowViewModel : ReactiveObject
     private FileApp _fileApp;
     private PanelApp _panelApp;
     private FilterApp _filterApp;
-    private TurnApp _turnApp = new();
+    private TurnApp _turnApp;
     private double _valTurnSlider = 0;
     public double ValueTurnSlider
     {
@@ -20,16 +20,22 @@ public partial class MainWindowViewModel : ReactiveObject
         set
         {
             this.RaiseAndSetIfChanged(ref _valTurnSlider, (int)value);
-            var bitmap =_turnApp.TurnImage(_panelApp.GetFiltredBitmap(), (int)value);
+            _turnApp.SetValueTurn((int)_valTurnSlider);
+            var bitmap =_turnApp.TurnImage(_panelApp.GetFiltredBitmap());
             _panelApp.ChangeBitmap(bitmap);
         }
     }
 
-    public MainWindowViewModel(FileApp fileApp, PanelApp panelApp, FilterApp filterApp)
+    public MainWindowViewModel(
+            FileApp fileApp, 
+            PanelApp panelApp, 
+            FilterApp filterApp, 
+            TurnApp turnApp)
     {
         _fileApp = fileApp;
         _panelApp = panelApp;
         _filterApp = filterApp;
+        _turnApp = turnApp;
     }
 
     public async Task LoadFile(IStorageFile file)
@@ -49,7 +55,7 @@ public partial class MainWindowViewModel : ReactiveObject
                 _panelApp.GetOriginalBitmap(), 
                 name);
         _panelApp.SetFiltredBitmap(newBitmap);
-        var turnBitmap = _turnApp.TurnImage(newBitmap, (int)_valTurnSlider);
+        var turnBitmap = _turnApp.TurnImage(newBitmap);
         _panelApp.ChangeBitmap(turnBitmap);
     }
 }

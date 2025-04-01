@@ -12,6 +12,7 @@ public class GammaSettingsViewModel : ReactiveObject
     private double _gammaValue = 1.0;
     private FilterApp _filterApp;
     private PanelApp _panelApp;
+    private TurnApp _turnApp;
     public double GammaValue
     {
         get => _gammaValue; 
@@ -26,10 +27,11 @@ public class GammaSettingsViewModel : ReactiveObject
     public ReactiveCommand<Unit, Unit> ApplyCommand { get; }
     public ReactiveCommand<Unit, Unit> CancelCommand { get; }
 
-    public GammaSettingsViewModel(FilterApp filterApp, PanelApp panelApp)
+    public GammaSettingsViewModel(FilterApp filterApp, PanelApp panelApp, TurnApp turnApp)
     {
         _filterApp = filterApp;
         _panelApp = panelApp;
+        _turnApp = turnApp;
         var canApply = this.WhenAnyValue(
             x => x.GammaValue,
             gamma => gamma >= 0.1 && gamma <= 5.0);
@@ -44,7 +46,9 @@ public class GammaSettingsViewModel : ReactiveObject
             var bitmap = _filterApp.ApplyFilter(
                         _panelApp.GetOriginalBitmap(), 
                         FilterName.Gamma);
+            _panelApp.SetFiltredBitmap(bitmap);
             _panelApp.ChangeBitmap(bitmap);
+            var turnBitmap = _turnApp.TurnImage(bitmap);
             IsVisible = false;
         }, canExecute: canApply);
 

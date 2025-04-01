@@ -12,6 +12,7 @@ public class WindowContainer
 {
     private FileApp _fileApp = new();
     private FilterApp _filterApp = new();
+    private TurnApp _turnApp = new();
     private PanelApp _panelApp;
     private Dictionary<WindowName, Window> _windows = [];
     public Window GetWindow(WindowName name) => _windows[name]; 
@@ -19,7 +20,7 @@ public class WindowContainer
     {
         var mainWindow = new MainWindow(this);
         _panelApp = new PanelApp(mainWindow.PhotoPanel);
-        var viewModel = new MainWindowViewModel(_fileApp, _panelApp, _filterApp); 
+        var viewModel = new MainWindowViewModel(_fileApp, _panelApp, _filterApp, _turnApp); 
         mainWindow.DataContext = viewModel;
         _windows.Add(WindowName.MainWindow, mainWindow);
         CreateGammaWindow();
@@ -28,7 +29,7 @@ public class WindowContainer
     private void CreateGammaWindow()
     {
         var gammaWindow = new GammaWindow();
-        gammaWindow.DataContext = new GammaSettingsViewModel(_filterApp, _panelApp);
+        gammaWindow.DataContext = new GammaSettingsViewModel(_filterApp, _panelApp, _turnApp);
         _windows.Add(WindowName.GammaWindow, gammaWindow);
     }
 }
