@@ -27,7 +27,7 @@ public class GammaSettingsViewModel : ReactiveObject
         
         var canApply = this.WhenAnyValue(
             x => x.GammaValue,
-            gamma => gamma >= 0.1 && gamma <= 5.0);
+            gamma => gamma >= 0.1 && gamma <= 10.0);
 
         ApplyCommand = ReactiveCommand.CreateFromTask(async () => 
         {
