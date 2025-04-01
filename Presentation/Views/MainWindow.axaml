@@ -1,6 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:ICGFilter.Presentation.ViewModels"
+        xmlns:local="using:ICGFilter.Domain.Repository"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -106,11 +107,18 @@
                             Width="100"/>
 
                     <RadioButton x:Name="Inverse" 
-                            Command="{Binding SetInverseFilter}" 
+                            Command="{Binding SetFilter}" 
+                            CommandParameter="{x:Static local:FilterName.Inversion}"
                             GroupName="filters">inverse</RadioButton>
                     <RadioButton x:Name="BlackWhite"
-                            Command="{Binding SetBlackWhiteFilter}"
+                            Command="{Binding SetFilter}"
+                            CommandParameter="{x:Static local:FilterName.BlackWhite}"
                             GroupName="filters">Black White</RadioButton>
+                    <RadioButton x:Name="Gamma"
+                            Tag="{x:Static local:WindowName.GammaWindow}"
+                            Click="OpenFilterDialog"
+                            Content="Gamma"/>
+                            
                 </StackPanel>
             </Grid>
         </Border>

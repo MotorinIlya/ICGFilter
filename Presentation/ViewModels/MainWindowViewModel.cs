@@ -11,7 +11,7 @@ public partial class MainWindowViewModel : ReactiveObject
 {
     private FileApp _fileApp;
     private PanelApp _panelApp;
-    private FilterApp _filterApp = new();
+    private FilterApp _filterApp;
     private TurnApp _turnApp = new();
     private double _valTurnSlider = 0;
     public double ValueTurnSlider
@@ -20,15 +20,16 @@ public partial class MainWindowViewModel : ReactiveObject
         set
         {
             this.RaiseAndSetIfChanged(ref _valTurnSlider, (int)value);
-            var bitmap =_turnApp.TurnImage(_panelApp.GetOriginalBitmap(), (int)value);
+            var bitmap =_turnApp.TurnImage(_panelApp.GetFiltredBitmap(), (int)value);
             _panelApp.ChangeBitmap(bitmap);
         }
     }
 
-    public MainWindowViewModel(FileApp fileApp, PanelApp panelApp)
+    public MainWindowViewModel(FileApp fileApp, PanelApp panelApp, FilterApp filterApp)
     {
         _fileApp = fileApp;
         _panelApp = panelApp;
+        _filterApp = filterApp;
     }
 
     public async Task LoadFile(IStorageFile file)
@@ -42,19 +43,13 @@ public partial class MainWindowViewModel : ReactiveObject
         await _fileApp.SaveFileAsync(_panelApp.GetBitmap(), file);
     }
 
-    public void SetInverseFilter()
+    public void SetFilter(FilterName name)
     {
-        var invBitmap = _filterApp.GetFilter(
-                _panelApp.GetBitmap(), 
-                FilterName.Inversion);
-        _panelApp.ChangeBitmap(invBitmap);
-    }
-
-    public void SetBlackWhiteFilter()
-    {
-        var bwBitmap = _filterApp.GetFilter(
-                _panelApp.GetBitmap(), 
-                FilterName.BlackWhite);
-        _panelApp.ChangeBitmap(bwBitmap);
+        var newBitmap = _filterApp.ApplyFilter(
+                _panelApp.GetOriginalBitmap(), 
+                name);
+        _panelApp.SetFiltredBitmap(newBitmap);
+        var turnBitmap = _turnApp.TurnImage(newBitmap, (int)_valTurnSlider);
+        _panelApp.ChangeBitmap(turnBitmap);
     }
 }

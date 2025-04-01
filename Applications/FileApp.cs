@@ -9,9 +9,8 @@ using ICGFilter.Domain.Services;
 
 namespace ICGFilter.Applications;
 
-public class FileApp(Window window)
+public class FileApp()
 {
-    Window _window = window;
     public async Task<WriteableBitmap?> LoadFileAsync(IStorageFile file)
     {
         return await FileLoadService.LoadFile(file);

@@ -2,18 +2,24 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
+using Avalonia.ReactiveUI;
+using ICGFilter.Domain.Container;
+using ICGFilter.Domain.Repository;
 using ICGFilter.Presentation.ViewModels;
+using ReactiveUI;
 
 namespace ICGFilter.Presentation.Views;
 
-public partial class MainWindow : Window
+public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 {
+    private WindowContainer _container;
     private PhotoPanel _photoPanel;
     public PhotoPanel PhotoPanel => _photoPanel;
-    public MainWindow()
+    public MainWindow(WindowContainer container)
     {
         InitializeComponent();
         _photoPanel = new(Scroll);
+        _container = container;
 
         Loaded += (s, e) => 
         {
@@ -22,6 +28,15 @@ public partial class MainWindow : Window
             _photoPanel.SetBitmap(width, height);
             Scroll.Content = _photoPanel;
         };
+    }
+
+    public void OpenFilterDialog(object? sender, RoutedEventArgs e)
+    {
+        if (sender is RadioButton radio && radio.Tag is WindowName name)
+        {
+            var window = _container.GetWindow(name);
+            window.Show();
+        }
     }
 
     // написать сервис под эти методы

@@ -3,11 +3,8 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
-using ICGFilter.Presentation.ViewModels;
-using ICGFilter.Presentation.Views;
-using System;
 using System.ComponentModel.Design;
-using ICGFilter.Applications;
+using ICGFilter.Domain.Container;
 
 namespace ICGFilter.Presentation;
 
@@ -27,14 +24,8 @@ public partial class App : Application
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
 
-            var mainWindow = new MainWindow();
-            var fileApp = new FileApp(mainWindow);
-            var panelApp = new PanelApp(mainWindow.PhotoPanel);
-            var viewModel = new MainWindowViewModel(fileApp, panelApp); 
-
-            mainWindow.DataContext = viewModel;
-
-            desktop.MainWindow = mainWindow;
+            var container = new WindowContainer();
+            desktop.MainWindow = container.GetWindow(Domain.Repository.WindowName.MainWindow);
         }
 
         base.OnFrameworkInitializationCompleted();

@@ -24,6 +24,7 @@ public class PanelApp(PhotoPanel panel)
         {
             _panel.Bitmap = bitmap;
             _panel.OriginalBitmap = bitmap;
+            _panel.FiltredBitmap = bitmap;
             using var buf = bitmap.Lock();
             _panel.Width = buf.Size.Width;
             _panel.Height = buf.Size.Height;
@@ -38,5 +39,15 @@ public class PanelApp(PhotoPanel panel)
     public WriteableBitmap GetBitmap()
     {
         return _panel.Bitmap;
+    }
+
+    public WriteableBitmap GetFiltredBitmap()
+    {
+        return _panel.FiltredBitmap;
+    }
+
+    public void SetFiltredBitmap(WriteableBitmap bitmap)
+    {
+        _panel.FiltredBitmap = bitmap;
     }
 }

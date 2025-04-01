@@ -5,6 +5,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using ICGFilter.Domain.Repository;
+using ICGFilter.Domain.Services;
 
 namespace ICGFilter.Presentation.Views;
 
@@ -12,6 +13,7 @@ public class PhotoPanel : UserControl
 {
     private WriteableBitmap _bitmap;
     private WriteableBitmap _originalBitmap;
+    private WriteableBitmap _filtredBitmap;
     private ScrollRepository _scroll;
     public WriteableBitmap Bitmap 
     {
@@ -32,6 +34,16 @@ public class PhotoPanel : UserControl
             InvalidateVisual();
         }
     }
+    public WriteableBitmap FiltredBitmap
+    {
+        get => _filtredBitmap;
+        set
+        {
+            _bitmap = value;
+            _filtredBitmap = _bitmap;
+            InvalidateVisual();
+        }
+    }
 
     public PhotoPanel(ScrollViewer scroll)
     {
@@ -41,6 +53,7 @@ public class PhotoPanel : UserControl
             PixelFormat.Bgra8888,
             AlphaFormat.Opaque);
         _originalBitmap = _bitmap;
+        _filtredBitmap = _bitmap;
         _scroll = new(new(0, 0), scroll);
     }
 
@@ -67,21 +80,16 @@ public class PhotoPanel : UserControl
     {
         Width = width;
         Height = height;
+
         _bitmap = new(
             new PixelSize(width, height),
             new Vector(96, 96),
             PixelFormat.Bgra8888,
             AlphaFormat.Opaque);
         _originalBitmap = _bitmap;
-        using var buffer = _bitmap.Lock();
-        var ptr = (byte*)buffer.Address.ToPointer();
-        for (int i = 0; i < buffer.Size.Width * buffer.Size.Height * 4; i += 4)
-        {
-            ptr[i] = 255;
-            ptr[i + 1] = 255;
-            ptr[i + 2] = 255;
-            ptr[i + 3] = 255;
-        }
+        _filtredBitmap = _bitmap;
+
+        BitmapService.FillBitmapWhite(_bitmap);
     }
 
     protected override void OnPointerPressed(PointerPressedEventArgs e)

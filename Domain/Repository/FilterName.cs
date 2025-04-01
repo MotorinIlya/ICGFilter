@@ -4,4 +4,5 @@ public enum FilterName
 {
     Inversion,
     BlackWhite,
+    Gamma,
 }
