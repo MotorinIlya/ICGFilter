@@ -119,6 +119,11 @@
                             CommandParameter="{x:Static local:WindowName.GammaWindow}"
                             Content="Gamma"
                             GroupName="filters"/>
+                    <RadioButton x:Name="Sharpness"
+                            Command="{Binding SetFilter}"
+                            CommandParameter="{x:Static local:FilterName.Sharpness}"
+                            GroupName="filters"
+                            Content="Sharpness"/>
                             
                 </StackPanel>
             </Grid>

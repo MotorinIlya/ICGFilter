@@ -10,6 +10,7 @@ public class FilterRepository
         {FilterName.Inversion, new InversionFilter()},
         {FilterName.BlackWhite, new BlackWhiteFilter()},
         {FilterName.Gamma, new GammaFilter()},
+        {FilterName.Sharpness, new SharpnessFitler()},
     };
 
     public IImageFilter GetFilter(FilterName filterName) => _filters[filterName];

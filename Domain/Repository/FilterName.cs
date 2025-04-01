@@ -5,4 +5,5 @@ public enum FilterName
     Inversion,
     BlackWhite,
     Gamma,
+    Sharpness,
 }
