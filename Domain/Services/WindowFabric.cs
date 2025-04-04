@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using ICGFilter.Domain.Repository;
+using ICGFilter.Presentation.Views.Blur;
 using ICGFilter.Presentation.Views.Gamma;
 
 namespace ICGFilter.Domain.Services;
@@ -11,6 +12,10 @@ public class WindowFabric
         if (name == WindowName.GammaWindow)
         {
             return new GammaWindow();
+        }
+        else if (name == WindowName.BlurWindow)
+        {
+            return new BlurWindow();
         }
         return null;
     }

@@ -5,14 +5,14 @@ using ICGFilter.Domain.Repository;
 using ICGFilter.Presentation.ViewModels;
 using ReactiveUI;
 
-namespace ICGFilter.Presentation.Views.Gamma;
+namespace ICGFilter.Presentation.Views.Blur;
 
-public partial class GammaWindow : ReactiveWindow<GammaSettingsViewModel>
+public partial class BlurWindow : ReactiveWindow<BlurSettingsViewModel>
 {
-    public GammaWindow()
+    public BlurWindow()
     {
         InitializeComponent();
-        
+
         DataContextChanged += CloseDialog;
     }
 

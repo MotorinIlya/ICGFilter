@@ -12,6 +12,7 @@ public class FilterRepository
         {FilterName.Gamma, new GammaFilter()},
         {FilterName.Sharpness, new SharpnessFitler()},
         {FilterName.Embossing, new EmbossingFitler()},
+        {FilterName.Blur, new BlurFitler()},
     };
 
     public IImageFilter GetFilter(FilterName filterName) => _filters[filterName];

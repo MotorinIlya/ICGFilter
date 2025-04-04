@@ -129,6 +129,10 @@
                             CommandParameter="{x:Static local:FilterName.Embossing}"
                             GroupName="filters"
                             Content="Embossing"/>
+                    <RadioButton Content="Blur"
+                            Command="{Binding OpenShowDialogCommand}"
+                            CommandParameter="{x:Static local:WindowName.BlurWindow}"
+                            GroupName="filters"/>
                             
                 </StackPanel>
             </Grid>

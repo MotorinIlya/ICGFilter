@@ -25,11 +25,18 @@ public class WindowContainer
         _window.DataContext = viewModel;
         _models.Add(WindowName.MainWindow, viewModel);
         CreateGammaModel();
+        CreateBlurModel();
     }
 
     private void CreateGammaModel()
     {
         var model = new GammaSettingsViewModel(_filterApp);
         _models.Add(WindowName.GammaWindow, model);
+    }
+
+    private void CreateBlurModel()
+    {
+        var model = new BlurSettingsViewModel(_filterApp);
+        _models.Add(WindowName.BlurWindow, model);
     }
 }

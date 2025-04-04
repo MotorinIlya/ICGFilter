@@ -4,4 +4,5 @@ public enum WindowName
 {
     MainWindow,
     GammaWindow,
+    BlurWindow,
 }

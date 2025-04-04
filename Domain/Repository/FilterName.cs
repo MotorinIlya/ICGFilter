@@ -7,4 +7,5 @@ public enum FilterName
     Gamma,
     Sharpness,
     Embossing,
+    Blur,
 }
