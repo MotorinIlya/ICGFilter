@@ -26,6 +26,7 @@ public class WindowContainer
         _models.Add(WindowName.MainWindow, viewModel);
         CreateGammaModel();
         CreateBlurModel();
+        CreateSobelModel();
     }
 
     private void CreateGammaModel()
@@ -38,5 +39,11 @@ public class WindowContainer
     {
         var model = new BlurSettingsViewModel(_filterApp);
         _models.Add(WindowName.BlurWindow, model);
+    }
+
+    private void CreateSobelModel()
+    {
+        var model = new SobelSettingsViewModel(_filterApp);
+        _models.Add(WindowName.SobelWindow, model);
     }
 }

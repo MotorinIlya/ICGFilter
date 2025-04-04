@@ -71,4 +71,11 @@ public partial class MainWindowViewModel : ReactiveObject
         var turnBitmap = _turnApp.TurnImage(newBitmap);
         _panelApp.ChangeBitmap(turnBitmap);
     }
+
+    public void SetOriginal()
+    {
+        _panelApp.SetFiltredBitmap(_panelApp.GetOriginalBitmap());
+        var turnBitmap = _turnApp.TurnImage(_panelApp.GetOriginalBitmap());
+        _panelApp.ChangeBitmap(turnBitmap);
+    }
 }

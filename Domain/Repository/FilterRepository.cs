@@ -13,6 +13,7 @@ public class FilterRepository
         {FilterName.Sharpness, new SharpnessFitler()},
         {FilterName.Embossing, new EmbossingFitler()},
         {FilterName.Blur, new BlurFitler()},
+        {FilterName.Sobel, new SobelFilter()},
     };
 
     public IImageFilter GetFilter(FilterName filterName) => _filters[filterName];

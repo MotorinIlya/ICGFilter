@@ -106,6 +106,9 @@
                     <TextBlock Text="{Binding ValueTurnSlider}"
                             Width="100"/>
 
+                    <RadioButton Content="Original"
+                            Command="{Binding SetOriginal}"
+                            GroupName="filters"/>
                     <RadioButton x:Name="Inverse" 
                             Command="{Binding SetFilter}" 
                             CommandParameter="{x:Static local:FilterName.Inversion}"
@@ -132,6 +135,10 @@
                     <RadioButton Content="Blur"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.BlurWindow}"
+                            GroupName="filters"/>
+                    <RadioButton Content="Sobel"
+                            Command="{Binding OpenShowDialogCommand}"
+                            CommandParameter="{x:Static local:WindowName.SobelWindow}"
                             GroupName="filters"/>
                             
                 </StackPanel>

@@ -1,5 +1,4 @@
 using System;
-using Avalonia.Controls.Platform;
 using Avalonia.Media.Imaging;
 using ICGFilter.Domain.Services;
 
@@ -38,8 +37,9 @@ public class SobelFilter : IImageFilter
 
     public unsafe WriteableBitmap Apply(WriteableBitmap bitmap)
     {
+        bitmap = _filter.Apply(bitmap);
         using var buf = bitmap.Lock();
-        var newBitmap = _filter.Apply(bitmap);
+        var newBitmap = BitmapService.CreateBitmap(buf.Size.Width, buf.Size.Height);
         using var newBuf = newBitmap.Lock();
 
         var ptr = (byte*)buf.Address.ToPointer();
