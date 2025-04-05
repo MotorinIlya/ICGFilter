@@ -6,4 +6,5 @@ public enum WindowName
     GammaWindow,
     BlurWindow,
     SobelWindow,
+    RobertsWindow,
 }

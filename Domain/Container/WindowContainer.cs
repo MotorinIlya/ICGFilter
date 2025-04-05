@@ -27,6 +27,7 @@ public class WindowContainer
         CreateGammaModel();
         CreateBlurModel();
         CreateSobelModel();
+        CreateRobertsModel();
     }
 
     private void CreateGammaModel()
@@ -45,5 +46,11 @@ public class WindowContainer
     {
         var model = new SobelSettingsViewModel(_filterApp);
         _models.Add(WindowName.SobelWindow, model);
+    }
+
+    private void CreateRobertsModel()
+    {
+        var model = new RobertsSettingsViewModel(_filterApp);
+        _models.Add(WindowName.RobertsWindow, model);
     }
 }

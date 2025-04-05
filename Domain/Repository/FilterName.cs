@@ -9,4 +9,5 @@ public enum FilterName
     Embossing,
     Blur,
     Sobel,
+    Roberts,
 }

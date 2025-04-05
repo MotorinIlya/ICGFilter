@@ -14,6 +14,7 @@ public class FilterRepository
         {FilterName.Embossing, new EmbossingFitler()},
         {FilterName.Blur, new BlurFitler()},
         {FilterName.Sobel, new SobelFilter()},
+        {FilterName.Roberts, new RobertsFilter()},
     };
 
     public IImageFilter GetFilter(FilterName filterName) => _filters[filterName];

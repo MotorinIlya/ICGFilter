@@ -140,7 +140,10 @@
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.SobelWindow}"
                             GroupName="filters"/>
-                            
+                    <RadioButton Content="Roberts"
+                            Command="{Binding OpenShowDialogCommand}"
+                            CommandParameter="{x:Static local:WindowName.RobertsWindow}"
+                            GroupName="filters"/>
                 </StackPanel>
             </Grid>
         </Border>
