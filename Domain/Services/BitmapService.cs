@@ -29,4 +29,24 @@ public class BitmapService
             ptr[i + 3] = 255;
         }
     }
+
+    public unsafe static (float[,], float[,], float[,]) ToMatrix(ILockedFramebuffer buffer)
+    {
+        var ptr = (byte*)buffer.Address.ToPointer();
+        var rmatrix = new float[buffer.Size.Width, buffer.Size.Height];
+        var gmatrix = new float[buffer.Size.Width, buffer.Size.Height];
+        var bmatrix = new float[buffer.Size.Width, buffer.Size.Height];
+
+        for (var x = 0; x < buffer.Size.Width; x++)
+        {
+            for (var y = 0; y < buffer.Size.Height; y++)
+            {
+                var offset = GetOffset(x, y, buffer.RowBytes);
+                bmatrix[x,y] = ptr[offset];
+                gmatrix[x,y] = ptr[offset + 1];
+                rmatrix[x,y] = ptr[offset + 2];
+            }
+        }
+        return (rmatrix, gmatrix, bmatrix);
+    }
 }

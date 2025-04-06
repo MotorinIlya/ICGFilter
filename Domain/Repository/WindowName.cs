@@ -7,4 +7,5 @@ public enum WindowName
     BlurWindow,
     SobelWindow,
     RobertsWindow,
+    FloydWindow,
 }

@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using ICGFilter.Domain.Repository;
 using ICGFilter.Presentation.Views.Blur;
+using ICGFilter.Presentation.Views.FloydSteinberg;
 using ICGFilter.Presentation.Views.Gamma;
 using ICGFilter.Presentation.Views.Roberts;
 using ICGFilter.Presentation.Views.Sobel;
@@ -26,6 +27,10 @@ public class WindowFabric
         else if (name == WindowName.RobertsWindow)
         {
             return new RobertsWindow();
+        }
+        else if (name == WindowName.FloydWindow)
+        {
+            return new FloydWindow();
         }
         return null;
     }

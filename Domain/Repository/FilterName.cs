@@ -10,4 +10,5 @@ public enum FilterName
     Blur,
     Sobel,
     Roberts,
+    Floyd,
 }

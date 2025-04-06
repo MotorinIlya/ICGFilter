@@ -112,11 +112,11 @@
                     <RadioButton x:Name="Inverse" 
                             Command="{Binding SetFilter}" 
                             CommandParameter="{x:Static local:FilterName.Inversion}"
-                            GroupName="filters">inverse</RadioButton>
+                            GroupName="filters">Inv</RadioButton>
                     <RadioButton x:Name="BlackWhite"
                             Command="{Binding SetFilter}"
                             CommandParameter="{x:Static local:FilterName.BlackWhite}"
-                            GroupName="filters">Black White</RadioButton>
+                            GroupName="filters">BW</RadioButton>
                     <RadioButton x:Name="Gamma"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.GammaWindow}"
@@ -143,6 +143,10 @@
                     <RadioButton Content="Roberts"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.RobertsWindow}"
+                            GroupName="filters"/>
+                    <RadioButton Content="Floyd"
+                            Command="{Binding OpenShowDialogCommand}"
+                            CommandParameter="{x:Static local:WindowName.FloydWindow}"
                             GroupName="filters"/>
                 </StackPanel>
             </Grid>

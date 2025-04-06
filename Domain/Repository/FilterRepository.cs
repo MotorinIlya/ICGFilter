@@ -15,6 +15,7 @@ public class FilterRepository
         {FilterName.Blur, new BlurFitler()},
         {FilterName.Sobel, new SobelFilter()},
         {FilterName.Roberts, new RobertsFilter()},
+        {FilterName.Floyd, new FloydSteinbergFilter()},
     };
 
     public IImageFilter GetFilter(FilterName filterName) => _filters[filterName];

@@ -1,0 +1,72 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ICGFilter.Presentation.ViewModels"
+        x:Class="ICGFilter.Presentation.Views.FloydSteinberg.FloydWindow"
+        x:DataType="vm:FloydSettingsViewModel"
+        Title="Floyd dithering"
+        Width="400"
+        Height="350">
+
+    <Design.DataContext>
+        <vm:FloydSettingsViewModel/>
+    </Design.DataContext>
+
+    <StackPanel Margin="15" Spacing="10" Orientation="Vertical">
+        <TextBlock Text="Quant (2 - 128):"/>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Red"/>         
+            <TextBox Text="{Binding RQuant, StringFormat={}{0:F2}}"
+                    Watermark="Enter red quant"
+                    Width="120"
+                    HorizontalAlignment="Left"/>
+            
+            <Slider Minimum="2"
+                    Maximum="128"
+                    Value="{Binding RQuant}"
+                    Margin="0 10"
+                    TickFrequency="0.1"
+                    IsSnapToTickEnabled="True"
+                    Width="100"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"> 
+            <TextBlock Text="Green"/>           
+            <TextBox Text="{Binding GQuant, StringFormat={}{0:F2}}"
+                    Watermark="Enter green quant"
+                    Width="120"
+                    HorizontalAlignment="Left"/>
+            
+            <Slider Minimum="2"
+                    Maximum="128"
+                    Value="{Binding GQuant}"
+                    Margin="0 10"
+                    TickFrequency="0.1"
+                    IsSnapToTickEnabled="True"
+                    Width="100"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"> 
+            <TextBlock Text="Blue"/>           
+            <TextBox Text="{Binding BQuant, StringFormat={}{0:F2}}"
+                    Watermark="Enter blue quant"
+                    Width="120"
+                    HorizontalAlignment="Left"/>
+            
+            <Slider Minimum="2"
+                    Maximum="128"
+                    Value="{Binding BQuant}"
+                    Margin="0 10"
+                    TickFrequency="0.1"
+                    IsSnapToTickEnabled="True"
+                    Width="100"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+            <Button Content="Apply" Command="{Binding ApplyCommand}" Width="80"/>
+            <Button Content="Cancel" Command="{Binding CancelCommand}" Width="80"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
