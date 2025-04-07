@@ -148,6 +148,10 @@
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.FloydWindow}"
                             GroupName="filters"/>
+                    <RadioButton Content="Order"
+                            Command="{Binding OpenShowDialogCommand}"
+                            CommandParameter="{x:Static local:WindowName.OrderWindow}"
+                            GroupName="filters"/>
                     <RadioButton Content="WaterColor"
                             Command="{Binding SetFilter}" 
                             CommandParameter="{x:Static local:FilterName.WaterColor}"

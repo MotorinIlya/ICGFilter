@@ -8,4 +8,5 @@ public enum WindowName
     SobelWindow,
     RobertsWindow,
     FloydWindow,
+    OrderWindow,
 }

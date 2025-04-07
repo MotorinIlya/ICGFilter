@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Avalonia.Media.Imaging;
 using ICGFilter.Domain.Repository;
 using ICGFilter.Domain.Services;
@@ -63,6 +62,28 @@ public class OrderlyFilter : IImageFilter
         var ptr = (byte*)buf.Address.ToPointer();
         var newPtr = (byte*)newBuf.Address.ToPointer();
         
+        var size = _kernel.GetLength(0);
+        for (var x = 0; x < buf.Size.Width; x++)
+        {
+            for (var y = 0; y < buf.Size.Height; y++)
+            {
+                (var r, var g, var b) = ColorService.GetColor(
+                        ptr, BitmapService.GetOffset(x, y, buf.RowBytes));
+
+                var newR = r + 256
+                        * ((float)_kernel[x % size, y % size] / (size * size)  - 0.5);
+                var newG = g + 256
+                        * ((float)_kernel[x % size, y % size] / (size * size)  - 0.5);
+                var newB = b + 256
+                        * ((float)_kernel[x % size, y % size] / (size * size)  - 0.5);
+                (var quantR, var quantG, var quantB) = QuantPixel(
+                        (float)newR, (float)newG, (float)newB);
+                
+                var offset = BitmapService.GetOffset(x, y, buf.RowBytes);
+                ColorService.SetColor(newPtr, offset,
+                    (byte)quantR, (byte)quantG, (byte)quantB);
+            }
+        }
         return newBitmap;
     }
 
@@ -99,13 +120,4 @@ public class OrderlyFilter : IImageFilter
 
         return ((int)tmpb, (int)tmpg, (int)tmpr);
     }
-
-    // private unsafe (int, int, int) CountNewPixel(byte* ptr, int x, int y, int rowBytes,
-    //         float[] rmatrix, float[] gmatrix, float[] bmatrix, int size)
-    // {
-    //     (var r, var g, var b) = ColorService.GetColor(
-    //             ptr, BitmapService.GetOffset(x, y, rowBytes));
-    //     var newR = r + 256 / (size * size) 
-    //             * (_kernel[x % _kernel.GetLength(0), y % _kernel.GetLength(0)];
-    // }
 }

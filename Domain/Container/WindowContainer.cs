@@ -29,6 +29,7 @@ public class WindowContainer
         CreateSobelModel();
         CreateRobertsModel();
         CreateFloydModel();
+        CreateOrderModel();
     }
 
     private void CreateGammaModel()
@@ -59,5 +60,11 @@ public class WindowContainer
     {
         var model = new FloydSettingsViewModel(_filterApp);
         _models.Add(WindowName.FloydWindow, model);
+    }
+
+    private void CreateOrderModel()
+    {
+        var model = new OrderSettingsViewModel(_filterApp);
+        _models.Add(WindowName.OrderWindow, model);
     }
 }

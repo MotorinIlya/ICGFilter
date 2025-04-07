@@ -3,6 +3,7 @@ using ICGFilter.Domain.Repository;
 using ICGFilter.Presentation.Views.Blur;
 using ICGFilter.Presentation.Views.FloydSteinberg;
 using ICGFilter.Presentation.Views.Gamma;
+using ICGFilter.Presentation.Views.Orderly;
 using ICGFilter.Presentation.Views.Roberts;
 using ICGFilter.Presentation.Views.Sobel;
 
@@ -31,6 +32,10 @@ public class WindowFabric
         else if (name == WindowName.FloydWindow)
         {
             return new FloydWindow();
+        }
+        else if (name == WindowName.OrderWindow)
+        {
+            return new OrderWindow();
         }
         return null;
     }
