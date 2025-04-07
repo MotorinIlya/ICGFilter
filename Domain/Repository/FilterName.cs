@@ -11,4 +11,5 @@ public enum FilterName
     Sobel,
     Roberts,
     Floyd,
+    WaterColor,
 }
