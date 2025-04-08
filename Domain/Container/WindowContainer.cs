@@ -32,6 +32,7 @@ public class WindowContainer
         CreateRobertsModel();
         CreateFloydModel();
         CreateOrderModel();
+        CreateTurnModel();
     }
 
     private void CreateGammaModel()
@@ -68,5 +69,11 @@ public class WindowContainer
     {
         var model = new OrderSettingsViewModel(_filterApp);
         _models.Add(WindowName.OrderWindow, model);
+    }
+
+    private void CreateTurnModel()
+    {
+        var model = new TurnViewModel(_turnApp);
+        _models.Add(WindowName.TurnWindow, model);
     }
 }

@@ -15,19 +15,6 @@ public partial class MainWindowViewModel : ReactiveObject
     private FilterApp _filterApp;
     private TurnApp _turnApp;
     private ResizeApp _resizeApp;
-    private double _valTurnSlider = 0;
-    public double ValueTurnSlider
-    {
-        get => _valTurnSlider;
-        set
-        {
-            this.RaiseAndSetIfChanged(ref _valTurnSlider, (int)value);
-            _turnApp.SetValueTurn((int)_valTurnSlider);
-            var bitmap =_turnApp.TurnImage(_panelApp.GetFiltredBitmap());
-            _panelApp.ChangeBitmap(bitmap);
-        }
-    }
-
     public ReactiveCommand<Unit, Unit> ResizeCommand { get; }
     public ReactiveCommand<WindowName, Unit> OpenShowDialogCommand { get; }
     public Interaction <WindowName, FilterName> DialogInteraction = new();
@@ -81,12 +68,20 @@ public partial class MainWindowViewModel : ReactiveObject
 
     public void SetFilter(FilterName name)
     {
+        if (name == FilterName.Turn)
+        {
+            var bitmap =_turnApp.TurnImage(_panelApp.GetFiltredBitmap());
+            _panelApp.ChangeBitmap(bitmap);
+        }
+        else
+        {
         var newBitmap = _filterApp.ApplyFilter(
                 _panelApp.GetResizeBitmap(), 
                 name);
         _panelApp.SetFiltredBitmap(newBitmap);
         var turnBitmap = _turnApp.TurnImage(newBitmap);
         _panelApp.ChangeBitmap(turnBitmap);
+        }
     }
 
     public void SetOriginal()

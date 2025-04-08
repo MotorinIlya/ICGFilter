@@ -5,37 +5,49 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        MinHeight="480"
+        MinWidth="800"
         x:Class="ICGFilter.Presentation.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
         Title="ICGFilter">
 
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
     <Window.Styles>
-        <Style Selector="ToggleButton">
-            <Setter Property="Background" Value="#2D2D2D"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#404040"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="4"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Padding" Value="8 4"/>
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
+    <Style Selector="RadioButton">
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="MainBorder"
+                        BorderThickness="1"
+                        BorderBrush="#CCCCCC"
+                        CornerRadius="4"
+                        Padding="8 4">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                        VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
 
-        <Style Selector="ToggleButton:checked">
-            <Setter Property="Background" Value="#007ACC"/>
-            <Setter Property="BorderBrush" Value="#005F9E"/>
-        </Style>
+    <Style Selector="RadioButton:checked Border#MainBorder">
+        <Setter Property="Background" Value="Blue"/>
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="BorderBrush" Value="#005A9E"/>
+    </Style>
 
-        <Style Selector="ToggleButton:hover">
-            <Setter Property="Background" Value="#3D3D3D"/>
-        </Style>
+    <Style Selector="RadioButton:pointerover Border#MainBorder">
+        <Setter Property="BorderBrush" Value="#0078D4"/>
+        <Setter Property="Background" Value="Gray"/>
+    </Style>
+
+    <Style Selector="RadioButton:disabled">
+        <Setter Property="Opacity" Value="0.5"/>
+    </Style>
 
         <Style Selector="Button">
             <Setter Property="Background" Value="#2D2D2D"/>
@@ -100,64 +112,75 @@
                             Spacing="4"
                             x:Name="Buttons">
                     <Button Content="Resize"
-                            Command="{Binding ResizeCommand}"/>
-                    <Slider Minimum="-180"
-                            Maximum="180"
-                            Value="{Binding ValueTurnSlider}"
-                            Width="120"/>
-                    <TextBlock Text="{Binding ValueTurnSlider}"
-                            Width="100"/>
+                            Command="{Binding ResizeCommand}"
+                            ToolTip.Tip="Подогнать под экран"/>
+                    <Button Content="Turn"
+                            Command="{Binding OpenShowDialogCommand}"
+                            CommandParameter="{x:Static local:WindowName.TurnWindow}"
+                            ToolTip.Tip="Повернуть изображение"/>
 
                     <RadioButton Content="Original"
                             Command="{Binding SetOriginal}"
-                            GroupName="filters"/>
-                    <RadioButton x:Name="Inverse" 
+                            GroupName="filters"
+                            ToolTip.Tip="Оригинальное изображение"/>
+                    <RadioButton Content="Inversion"
                             Command="{Binding SetFilter}" 
                             CommandParameter="{x:Static local:FilterName.Inversion}"
-                            GroupName="filters">Inv</RadioButton>
-                    <RadioButton x:Name="BlackWhite"
+                            GroupName="filters"
+                            ToolTip.Tip="Инверсия"/>
+                    <RadioButton Content="BlackWhite"
                             Command="{Binding SetFilter}"
                             CommandParameter="{x:Static local:FilterName.BlackWhite}"
-                            GroupName="filters">BW</RadioButton>
+                            GroupName="filters"
+                            ToolTip.Tip="Черно-белое изображение"/>
                     <RadioButton x:Name="Gamma"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.GammaWindow}"
                             Content="Gamma"
-                            GroupName="filters"/>
-                    <RadioButton x:Name="Sharpness"
+                            GroupName="filters"
+                            ToolTip.Tip="Гамма коррекция"/>
+                    <RadioButton x:Name="Sharp"
                             Command="{Binding SetFilter}"
                             CommandParameter="{x:Static local:FilterName.Sharpness}"
                             GroupName="filters"
-                            Content="Sharpness"/>
+                            Content="Sharp"
+                            ToolTip.Tip="Увеличение резкости"/>
                     <RadioButton x:Name="Embossing"
                             Command="{Binding SetFilter}"
                             CommandParameter="{x:Static local:FilterName.Embossing}"
                             GroupName="filters"
-                            Content="Embossing"/>
+                            Content="Emboss"
+                            ToolTip.Tip="Тиснение"/>
                     <RadioButton Content="Blur"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.BlurWindow}"
-                            GroupName="filters"/>
+                            GroupName="filters"
+                            ToolTip.Tip="Размыливание"/>
                     <RadioButton Content="Sobel"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.SobelWindow}"
-                            GroupName="filters"/>
+                            GroupName="filters"
+                            ToolTip.Tip="Оператор Собеля"/>
                     <RadioButton Content="Roberts"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.RobertsWindow}"
-                            GroupName="filters"/>
+                            GroupName="filters"
+                            ToolTip.Tip="Оператор Робертса"/>
                     <RadioButton Content="Floyd"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.FloydWindow}"
-                            GroupName="filters"/>
+                            GroupName="filters"
+                            ToolTip.Tip="Дизеринг Флойда Стейнберга"/>
                     <RadioButton Content="Order"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.OrderWindow}"
-                            GroupName="filters"/>
+                            GroupName="filters"
+                            ToolTip.Tip="Упорядоченный дизеринг"/>
                     <RadioButton Content="WaterColor"
                             Command="{Binding SetFilter}" 
                             CommandParameter="{x:Static local:FilterName.WaterColor}"
-                            GroupName="filters"/>
+                            GroupName="filters"
+                            ToolTip.Tip="Акварелизация"/>
                 </StackPanel>
             </Grid>
         </Border>

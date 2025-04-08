@@ -9,4 +9,5 @@ public enum WindowName
     RobertsWindow,
     FloydWindow,
     OrderWindow,
+    TurnWindow,
 }

@@ -6,6 +6,7 @@ using ICGFilter.Presentation.Views.Gamma;
 using ICGFilter.Presentation.Views.Orderly;
 using ICGFilter.Presentation.Views.Roberts;
 using ICGFilter.Presentation.Views.Sobel;
+using ICGFilter.Presentation.Views.Turn;
 
 namespace ICGFilter.Domain.Services;
 
@@ -36,6 +37,10 @@ public class WindowFabric
         else if (name == WindowName.OrderWindow)
         {
             return new OrderWindow();
+        }
+        else if (name == WindowName.TurnWindow)
+        {
+            return new TurnWindow();
         }
         return null;
     }

@@ -13,4 +13,5 @@ public enum FilterName
     Floyd,
     Orderly,
     WaterColor,
+    Turn,
 }
