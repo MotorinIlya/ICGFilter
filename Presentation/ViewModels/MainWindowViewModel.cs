@@ -10,11 +10,18 @@ namespace ICGFilter.Presentation.ViewModels;
 
 public partial class MainWindowViewModel : ReactiveObject
 {
+    private FilterName _mode;
+    private FilterName _lastMode = FilterName.Default;
     private FileApp _fileApp;
     private PanelApp _panelApp;
     private FilterApp _filterApp;
     private TurnApp _turnApp;
     private ResizeApp _resizeApp;
+    public FilterName Mode
+    {
+        get => _mode;
+        set => this.RaiseAndSetIfChanged(ref _mode, value);
+    }
     public ReactiveCommand<Unit, Unit> ResizeCommand { get; }
     public ReactiveCommand<WindowName, Unit> OpenShowDialogCommand { get; }
     public Interaction <WindowName, FilterName> DialogInteraction = new();
@@ -51,6 +58,7 @@ public partial class MainWindowViewModel : ReactiveObject
 
     private async Task ShowDialogFilter(WindowName name)
     {
+        Mode = WindowToFilter.GetFilter(name);
         var result = await DialogInteraction.Handle(name);
         SetFilter(result);
     }
@@ -73,14 +81,20 @@ public partial class MainWindowViewModel : ReactiveObject
             var bitmap =_turnApp.TurnImage(_panelApp.GetFiltredBitmap());
             _panelApp.ChangeBitmap(bitmap);
         }
+        else if (name != FilterName.Default)
+        {
+            Mode = name;
+            _lastMode = name;
+            var newBitmap = _filterApp.ApplyFilter(
+                    _panelApp.GetResizeBitmap(), 
+                    name);
+            _panelApp.SetFiltredBitmap(newBitmap);
+            var turnBitmap = _turnApp.TurnImage(newBitmap);
+            _panelApp.ChangeBitmap(turnBitmap);
+        }
         else
         {
-        var newBitmap = _filterApp.ApplyFilter(
-                _panelApp.GetResizeBitmap(), 
-                name);
-        _panelApp.SetFiltredBitmap(newBitmap);
-        var turnBitmap = _turnApp.TurnImage(newBitmap);
-        _panelApp.ChangeBitmap(turnBitmap);
+            Mode = _lastMode;
         }
     }
 

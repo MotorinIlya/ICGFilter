@@ -37,7 +37,7 @@ public class TurnViewModel : ReactiveObject
 
         CancelCommand = ReactiveCommand.CreateFromTask(async () => 
         { 
-            await CloseInteraction.Handle(FilterName.Turn);
+            await CloseInteraction.Handle(FilterName.Default);
         });
     }
 }

@@ -41,7 +41,7 @@ public class SobelSettingsViewModel : ReactiveObject
 
         CancelCommand = ReactiveCommand.CreateFromTask(async () => 
         { 
-            await CloseInteraction.Handle(FilterName.Sobel);
+            await CloseInteraction.Handle(FilterName.Default);
         });
     }
 }

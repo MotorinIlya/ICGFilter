@@ -2,6 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:ICGFilter.Presentation.ViewModels"
         xmlns:local="using:ICGFilter.Domain.Repository"
+        xmlns:convert="clr-namespace:ICGFilter.Domain.Services"
+        xmlns:enums="clr-namespace:ICGFilter.Domain.Repository"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
@@ -11,9 +13,14 @@
         x:DataType="vm:MainWindowViewModel"
         Title="ICGFilter">
 
+    <Window.Resources>
+        <convert:EnumEqualsConverter x:Key="EnumEqualsConverter"/>
+    </Window.Resources>
+
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+
     <Window.Styles>
     <Style Selector="RadioButton">
         <Setter Property="Background" Value="Black"/>
@@ -88,8 +95,52 @@
                     <MenuItem Header="Save" Click="ShowSaveDialog"/>
                 </MenuItem>
                 <MenuItem Header="Edit">
-                    <MenuItem Header="Filters"/>
-                    <MenuItem Header="Clear"/>
+                    <MenuItem Header="Filters">
+                        <MenuItem Header="Inversion"
+                                ToolTip.Tip="Инверсия"
+                                Command="{Binding SetFilter}" 
+                                CommandParameter="{x:Static local:FilterName.Inversion}"/>
+                        <MenuItem Header="BlackWhite"
+                                ToolTip.Tip="Черно белый"
+                                Command="{Binding SetFilter}"
+                                CommandParameter="{x:Static local:FilterName.BlackWhite}"/>
+                        <MenuItem Header="Gamma"
+                                ToolTip.Tip="Гамма коррекция"
+                                Command="{Binding OpenShowDialogCommand}"
+                                CommandParameter="{x:Static local:WindowName.GammaWindow}"/>
+                        <MenuItem Header="Sharpness"
+                                ToolTip.Tip="Увеличение резкости"
+                                Command="{Binding SetFilter}"
+                                CommandParameter="{x:Static local:FilterName.Sharpness}"/>
+                        <MenuItem Header="Embossing"
+                                ToolTip.Tip="Тиснение"
+                                Command="{Binding SetFilter}"
+                                CommandParameter="{x:Static local:FilterName.Embossing}"/>
+                        <MenuItem Header="Blur"
+                                ToolTip.Tip="Размыливание"
+                                Command="{Binding OpenShowDialogCommand}"
+                                CommandParameter="{x:Static local:WindowName.BlurWindow}"/>
+                        <MenuItem Header="Sobel"
+                                ToolTip.Tip="Оператор Собеля"
+                                Command="{Binding OpenShowDialogCommand}"
+                                CommandParameter="{x:Static local:WindowName.SobelWindow}"/>
+                        <MenuItem Header="Roberts"
+                                ToolTip.Tip="Оператор Робертса"
+                                Command="{Binding OpenShowDialogCommand}"
+                                CommandParameter="{x:Static local:WindowName.RobertsWindow}"/>
+                        <MenuItem Header="Floyd"
+                                ToolTip.Tip="Дизеринг Флойда Стейнберга"
+                                Command="{Binding OpenShowDialogCommand}"
+                                CommandParameter="{x:Static local:WindowName.FloydWindow}"/>
+                        <MenuItem Header="Order"
+                                ToolTip.Tip="упорядоченный дизеринг"
+                                Command="{Binding OpenShowDialogCommand}"
+                                CommandParameter="{x:Static local:WindowName.OrderWindow}"/>
+                        <MenuItem Header="WaterColor"
+                                ToolTip.Tip="Акварелизация"
+                                Command="{Binding SetFilter}"
+                                CommandParameter="{x:Static local:FilterName.WaterColor}"/>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="About"/>
             </Menu>
@@ -127,60 +178,93 @@
                             Command="{Binding SetFilter}" 
                             CommandParameter="{x:Static local:FilterName.Inversion}"
                             GroupName="filters"
-                            ToolTip.Tip="Инверсия"/>
+                            ToolTip.Tip="Инверсия"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.Inversion}}"/>
                     <RadioButton Content="BlackWhite"
                             Command="{Binding SetFilter}"
                             CommandParameter="{x:Static local:FilterName.BlackWhite}"
                             GroupName="filters"
-                            ToolTip.Tip="Черно-белое изображение"/>
+                            ToolTip.Tip="Черно-белое изображение"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.BlackWhite}}"/>
                     <RadioButton x:Name="Gamma"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.GammaWindow}"
                             Content="Gamma"
                             GroupName="filters"
-                            ToolTip.Tip="Гамма коррекция"/>
+                            ToolTip.Tip="Гамма коррекция"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.Gamma}}"/>
                     <RadioButton x:Name="Sharp"
                             Command="{Binding SetFilter}"
                             CommandParameter="{x:Static local:FilterName.Sharpness}"
                             GroupName="filters"
                             Content="Sharp"
-                            ToolTip.Tip="Увеличение резкости"/>
+                            ToolTip.Tip="Увеличение резкости"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.Sharpness}}"/>
                     <RadioButton x:Name="Embossing"
                             Command="{Binding SetFilter}"
                             CommandParameter="{x:Static local:FilterName.Embossing}"
                             GroupName="filters"
                             Content="Emboss"
-                            ToolTip.Tip="Тиснение"/>
+                            ToolTip.Tip="Тиснение"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.Embossing}}"/>
                     <RadioButton Content="Blur"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.BlurWindow}"
                             GroupName="filters"
-                            ToolTip.Tip="Размыливание"/>
+                            ToolTip.Tip="Размыливание"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.Blur}}"/>
                     <RadioButton Content="Sobel"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.SobelWindow}"
                             GroupName="filters"
-                            ToolTip.Tip="Оператор Собеля"/>
+                            ToolTip.Tip="Оператор Собеля"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.Sobel}}"/>
                     <RadioButton Content="Roberts"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.RobertsWindow}"
                             GroupName="filters"
-                            ToolTip.Tip="Оператор Робертса"/>
+                            ToolTip.Tip="Оператор Робертса"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.Roberts}}"/>
                     <RadioButton Content="Floyd"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.FloydWindow}"
                             GroupName="filters"
-                            ToolTip.Tip="Дизеринг Флойда Стейнберга"/>
+                            ToolTip.Tip="Дизеринг Флойда Стейнберга"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.Floyd}}"/>
                     <RadioButton Content="Order"
                             Command="{Binding OpenShowDialogCommand}"
                             CommandParameter="{x:Static local:WindowName.OrderWindow}"
                             GroupName="filters"
-                            ToolTip.Tip="Упорядоченный дизеринг"/>
+                            ToolTip.Tip="Упорядоченный дизеринг"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.Orderly}}"/>
                     <RadioButton Content="WaterColor"
                             Command="{Binding SetFilter}" 
                             CommandParameter="{x:Static local:FilterName.WaterColor}"
                             GroupName="filters"
-                            ToolTip.Tip="Акварелизация"/>
+                            ToolTip.Tip="Акварелизация"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.WaterColor}}"/>
                 </StackPanel>
             </Grid>
         </Border>

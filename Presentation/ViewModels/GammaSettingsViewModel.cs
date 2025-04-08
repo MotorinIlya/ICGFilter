@@ -41,7 +41,7 @@ public class GammaSettingsViewModel : ReactiveObject
 
         CancelCommand = ReactiveCommand.CreateFromTask(async () => 
         { 
-            await CloseInteraction.Handle(FilterName.Gamma);
+            await CloseInteraction.Handle(FilterName.Default);
         });
     }
 }

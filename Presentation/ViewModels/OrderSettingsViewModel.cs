@@ -60,7 +60,7 @@ public class OrderSettingsViewModel : ReactiveObject
 
         CancelCommand = ReactiveCommand.CreateFromTask(async () => 
         { 
-            await CloseInteraction.Handle(FilterName.Orderly);
+            await CloseInteraction.Handle(FilterName.Default);
         });
     }
 }

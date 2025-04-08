@@ -39,7 +39,7 @@ public class BlurSettingsViewModel : ReactiveObject
 
         CancelCommand = ReactiveCommand.CreateFromTask(async () => 
         { 
-            await CloseInteraction.Handle(FilterName.Blur);
+            await CloseInteraction.Handle(FilterName.Default);
         });
     }
 }

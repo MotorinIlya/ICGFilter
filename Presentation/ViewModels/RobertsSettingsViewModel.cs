@@ -40,7 +40,7 @@ public class RobertsSettingsViewModel : ReactiveObject
 
         CancelCommand = ReactiveCommand.CreateFromTask(async () => 
         { 
-            await CloseInteraction.Handle(FilterName.Roberts);
+            await CloseInteraction.Handle(FilterName.Default);
         });
     }
 }

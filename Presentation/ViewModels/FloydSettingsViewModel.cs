@@ -60,7 +60,7 @@ public class FloydSettingsViewModel : ReactiveObject
 
         CancelCommand = ReactiveCommand.CreateFromTask(async () => 
         { 
-            await CloseInteraction.Handle(FilterName.Floyd);
+            await CloseInteraction.Handle(FilterName.Default);
         });
     }
 }
