@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using ICGFilter.Domain.Repository;
+using ICGFilter.Presentation.Views.About;
 using ICGFilter.Presentation.Views.Blur;
 using ICGFilter.Presentation.Views.FloydSteinberg;
 using ICGFilter.Presentation.Views.Gamma;
@@ -41,6 +42,10 @@ public class WindowFabric
         else if (name == WindowName.TurnWindow)
         {
             return new TurnWindow();
+        }
+        else if (name == WindowName.AboutWindow)
+        {
+            return new AboutWindow();
         }
         return null;
     }

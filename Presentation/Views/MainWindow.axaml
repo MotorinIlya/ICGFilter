@@ -142,7 +142,7 @@
                                 CommandParameter="{x:Static local:FilterName.WaterColor}"/>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="About"/>
+                <MenuItem Header="About" Click="ShowAbout"/>
             </Menu>
         </DockPanel>
 

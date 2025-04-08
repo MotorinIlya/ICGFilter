@@ -10,4 +10,5 @@ public enum WindowName
     FloydWindow,
     OrderWindow,
     TurnWindow,
+    AboutWindow,
 }

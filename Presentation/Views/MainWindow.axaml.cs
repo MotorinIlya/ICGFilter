@@ -55,6 +55,12 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
         context.SetOutput(result);
     }
 
+    public async void ShowAbout(object? sender, RoutedEventArgs e)
+    {
+        var window = WindowFabric.CreateWindow(WindowName.AboutWindow);
+        await window.ShowDialog(this);
+    }
+
 
     // написать сервис под эти методы
     private async void OpenShowLoadDialog(object? sender, RoutedEventArgs e)

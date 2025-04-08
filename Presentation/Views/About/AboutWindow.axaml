@@ -19,24 +19,54 @@
                     BorderThickness="0 0 0 1"
                     Padding="0 0 0 10">
                 <StackPanel>
-                    <TextBlock Text="Доступные фильтры"/>
+                    <TextBlock Text="Доступные фильтры"
+                            FontSize="16" 
+                           Foreground="#333333"/>
                     <ListBox IsEnabled="False" 
                             Background="Transparent"
                             BorderThickness="0">
                         <ListBoxItem>
-                            <TextBlock Text="Линия — рисует отрезок между двумя точками" 
+                            <TextBlock Text="Инверсия" 
                                     Foreground="#444444"/>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <TextBlock Text="Карандаш — рисует линию при движении мыши" 
+                            <TextBlock Text="Черно-белый фильтр" 
                                     Foreground="#444444"/>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <TextBlock Text="Штамп — создаёт многоугольники и звёзды (3-20 вершин)" 
+                            <TextBlock Text="Гамма коррекция" 
                                     Foreground="#444444"/>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <TextBlock Text="Заливка — заполняет область цветом" 
+                            <TextBlock Text="Фильтр резкости" 
+                                    Foreground="#444444"/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock Text="Тиснение" 
+                                    Foreground="#444444"/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock Text="Размытие" 
+                                    Foreground="#444444"/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock Text="Оператор Собеля" 
+                                    Foreground="#444444"/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock Text="Оператор Робертса" 
+                                    Foreground="#444444"/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock Text="Дизеринг Флойда Стейнберга" 
+                                    Foreground="#444444"/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock Text="Упорядоченный дизеринг" 
+                                    Foreground="#444444"/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock Text="Акварелизация" 
                                     Foreground="#444444"/>
                         </ListBoxItem>
                     </ListBox>
@@ -44,22 +74,18 @@
             </Border>
 
             <StackPanel Spacing="8">
-                <TextBlock Text="Общие параметры" 
+                <TextBlock Text="Приведение к экрану" 
                            FontSize="16" 
                            Foreground="#333333"/>
-                <TextBlock Text="• Цвет линии: палитра выбора" 
-                           Foreground="#666666"/>
-                <TextBlock Text="• Толщина линии: от 1 до 50 пикселей" 
+                <TextBlock Text="• Фотография начинает полностью помещаться в окно" 
                            Foreground="#666666"/>
             </StackPanel>
 
             <StackPanel Spacing="8">
-                <TextBlock Text="Настройки штампа" 
+                <TextBlock Text="Поворот фотографии" 
                            FontSize="16" 
                            Foreground="#333333"/>
-                <TextBlock Text="• Угол поворота: 0-360 градусов" 
-                           Foreground="#666666"/>
-                <TextBlock Text="• Режим звезды: регулировка внутреннего радиуса" 
+                <TextBlock Text="• Угол поворота -180 до 180 градусов" 
                            Foreground="#666666"/>
             </StackPanel>
 
@@ -71,7 +97,7 @@
                       Margin="0 5">
                     <TextBlock Text="Сохранение:" 
                                Foreground="#666666"/>
-                    <TextBlock Text="PNG, JPEG" 
+                    <TextBlock Text="JPEG" 
                                Grid.Column="1" 
                                Foreground="#666666"/>
                     <TextBlock Text="Загрузка:" 
@@ -79,12 +105,15 @@
                                Grid.Row="1" 
                                Margin="0 15"
                                Foreground="#666666"/>
-                    <TextBlock Text="PNG, JPEG, BMP, GIF" 
+                    <TextBlock Text="PNG, JPEG, BMP" 
                                Grid.Column="1" 
                                Grid.Row="1" 
                                Margin="0 15"
                                Foreground="#666666"/>
                 </Grid>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Выполнил Студент 3 курса ФИТа НГУ Моторин Илья"/>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>
