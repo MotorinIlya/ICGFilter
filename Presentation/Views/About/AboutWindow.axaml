@@ -5,7 +5,8 @@
         Width="600" 
         Height="500"
         Background="White"
-        FontFamily="Arial">
+        FontFamily="Arial"
+        CanResize="False">
     
     <ScrollViewer Margin="15">
         <StackPanel Spacing="20">
