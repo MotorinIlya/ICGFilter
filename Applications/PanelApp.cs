@@ -25,29 +25,31 @@ public class PanelApp(PhotoPanel panel)
             _panel.Bitmap = bitmap;
             _panel.OriginalBitmap = bitmap;
             _panel.FiltredBitmap = bitmap;
+            _panel.ResizeBitmap = bitmap;
             using var buf = bitmap.Lock();
             _panel.Width = buf.Size.Width;
             _panel.Height = buf.Size.Height;
         }
     }
 
-    public WriteableBitmap GetOriginalBitmap()
+    public (int, int) GetSizeBitmap()
     {
-        return _panel.OriginalBitmap;
+        var bitmap = _panel.OriginalBitmap;
+        using var buf = bitmap.Lock();
+        return (buf.Size.Width, buf.Size.Height);
     }
 
-    public WriteableBitmap GetBitmap()
-    {
-        return _panel.Bitmap;
-    }
+    public WriteableBitmap GetOriginalBitmap() => _panel.OriginalBitmap;
 
-    public WriteableBitmap GetFiltredBitmap()
-    {
-        return _panel.FiltredBitmap;
-    }
+    public WriteableBitmap GetBitmap() => _panel.Bitmap;
 
-    public void SetFiltredBitmap(WriteableBitmap bitmap)
-    {
-        _panel.FiltredBitmap = bitmap;
-    }
+    public WriteableBitmap GetFiltredBitmap() => _panel.FiltredBitmap;
+
+    public WriteableBitmap GetResizeBitmap() => _panel.ResizeBitmap;
+
+    public void SetFiltredBitmap(WriteableBitmap bitmap) => 
+            _panel.FiltredBitmap = bitmap;
+    
+    public void SetResizeBitmap(WriteableBitmap bitmap) =>
+            _panel.ResizeBitmap = bitmap;
 }

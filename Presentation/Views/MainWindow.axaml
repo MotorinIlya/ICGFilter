@@ -99,6 +99,8 @@
                             HorizontalAlignment="Left"
                             Spacing="4"
                             x:Name="Buttons">
+                    <Button Content="Resize"
+                            Command="{Binding ResizeCommand}"/>
                     <Slider Minimum="-180"
                             Maximum="180"
                             Value="{Binding ValueTurnSlider}"

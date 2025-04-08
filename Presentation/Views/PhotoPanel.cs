@@ -12,6 +12,7 @@ namespace ICGFilter.Presentation.Views;
 public class PhotoPanel : UserControl
 {
     private WriteableBitmap _bitmap;
+    private WriteableBitmap _resizeBitmap;
     private WriteableBitmap _originalBitmap;
     private WriteableBitmap _filtredBitmap;
     private ScrollRepository _scroll;
@@ -26,34 +27,27 @@ public class PhotoPanel : UserControl
     }
     public WriteableBitmap OriginalBitmap
     {
-        get => _originalBitmap;
-        set
-        {
-            _bitmap = value;
-            _originalBitmap = value;
-            InvalidateVisual();
-        }
+        get => _originalBitmap; 
+        set => _originalBitmap = value;
     }
     public WriteableBitmap FiltredBitmap
     {
-        get => _filtredBitmap;
-        set
-        {
-            _bitmap = value;
-            _filtredBitmap = _bitmap;
-            InvalidateVisual();
-        }
+        get => _filtredBitmap; 
+        set => _filtredBitmap = value;
+    }
+
+    public WriteableBitmap ResizeBitmap
+    {
+        get => _resizeBitmap; 
+        set => _resizeBitmap = value;
     }
 
     public PhotoPanel(ScrollViewer scroll)
     {
-        _bitmap = new(
-            new PixelSize(10, 10),
-            new Vector(96, 96),
-            PixelFormat.Bgra8888,
-            AlphaFormat.Opaque);
+        _bitmap = BitmapService.CreateBitmap(10, 10);
         _originalBitmap = _bitmap;
         _filtredBitmap = _bitmap;
+        _resizeBitmap = _bitmap;
         _scroll = new(new(0, 0), scroll);
     }
 
@@ -76,20 +70,16 @@ public class PhotoPanel : UserControl
             context.DrawRectangle(null, pen, borderRect);
     }
 
-    public unsafe void SetBitmap(int width, int height)
+    public void SetBitmap(int width, int height)
     {
         Width = width;
         Height = height;
 
-        _bitmap = new(
-            new PixelSize(width, height),
-            new Vector(96, 96),
-            PixelFormat.Bgra8888,
-            AlphaFormat.Opaque);
+        _bitmap = BitmapService.CreateBitmap(width, height);
+        BitmapService.FillBitmapWhite(_bitmap);
         _originalBitmap = _bitmap;
         _filtredBitmap = _bitmap;
-
-        BitmapService.FillBitmapWhite(_bitmap);
+        _resizeBitmap = _bitmap;
     }
 
     protected override void OnPointerPressed(PointerPressedEventArgs e)

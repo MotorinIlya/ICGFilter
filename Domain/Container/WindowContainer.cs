@@ -13,6 +13,7 @@ public class WindowContainer
     private FilterApp _filterApp = new();
     private TurnApp _turnApp = new();
     private PanelApp _panelApp;
+    private ResizeApp _resizeApp = new();
     private MainWindow _window;
     public MainWindow MainWin => _window;
     private Dictionary<WindowName, ReactiveObject> _models = [];
@@ -21,7 +22,8 @@ public class WindowContainer
     {
         _window = new MainWindow(this);
         _panelApp = new PanelApp(_window.PhotoPanel);
-        var viewModel = new MainWindowViewModel(_fileApp, _panelApp, _filterApp, _turnApp); 
+        var viewModel = new MainWindowViewModel(_fileApp, _panelApp, 
+                _filterApp, _turnApp, _resizeApp); 
         _window.DataContext = viewModel;
         _models.Add(WindowName.MainWindow, viewModel);
         CreateGammaModel();

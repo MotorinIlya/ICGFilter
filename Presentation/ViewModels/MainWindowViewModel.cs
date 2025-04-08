@@ -1,7 +1,6 @@
 ﻿using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Avalonia.Platform.Storage;
 using ICGFilter.Applications;
 using ICGFilter.Domain.Repository;
@@ -15,6 +14,7 @@ public partial class MainWindowViewModel : ReactiveObject
     private PanelApp _panelApp;
     private FilterApp _filterApp;
     private TurnApp _turnApp;
+    private ResizeApp _resizeApp;
     private double _valTurnSlider = 0;
     public double ValueTurnSlider
     {
@@ -28,21 +28,38 @@ public partial class MainWindowViewModel : ReactiveObject
         }
     }
 
+    public ReactiveCommand<Unit, Unit> ResizeCommand { get; }
     public ReactiveCommand<WindowName, Unit> OpenShowDialogCommand { get; }
     public Interaction <WindowName, FilterName> DialogInteraction = new();
+    public Interaction <Unit, (int, int)> ResizeInteraction = new();
 
     public MainWindowViewModel(
             FileApp fileApp, 
             PanelApp panelApp, 
             FilterApp filterApp, 
-            TurnApp turnApp)
+            TurnApp turnApp,
+            ResizeApp resizeApp)
     {
         _fileApp = fileApp;
         _panelApp = panelApp;
         _filterApp = filterApp;
         _turnApp = turnApp;
+        _resizeApp = resizeApp;
 
         OpenShowDialogCommand = ReactiveCommand.CreateFromTask<WindowName>(ShowDialogFilter);
+        ResizeCommand = ReactiveCommand.CreateFromTask(ResizeImage);
+    }
+
+    private async Task ResizeImage()
+    {
+        var result = await ResizeInteraction.Handle(Unit.Default);
+        var normalizeResult = _resizeApp.Normalize(result, _panelApp.GetSizeBitmap());
+        var bitmap = _resizeApp.ResizeImage(_panelApp.GetBitmap(), 
+                normalizeResult.Item1, normalizeResult.Item2);
+        _panelApp.SetResizeBitmap(bitmap);
+        _panelApp.SetFiltredBitmap(bitmap);
+        var turnBitmap = _turnApp.TurnImage(bitmap);
+        _panelApp.ChangeBitmap(turnBitmap);
     }
 
     private async Task ShowDialogFilter(WindowName name)
@@ -65,7 +82,7 @@ public partial class MainWindowViewModel : ReactiveObject
     public void SetFilter(FilterName name)
     {
         var newBitmap = _filterApp.ApplyFilter(
-                _panelApp.GetOriginalBitmap(), 
+                _panelApp.GetResizeBitmap(), 
                 name);
         _panelApp.SetFiltredBitmap(newBitmap);
         var turnBitmap = _turnApp.TurnImage(newBitmap);

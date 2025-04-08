@@ -39,8 +39,14 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         this.WhenActivated(action => 
                 action(ViewModel!.DialogInteraction.RegisterHandler(OpenDialog)));
+        this.WhenActivated(action =>
+                action(ViewModel!.ResizeInteraction.RegisterHandler(GetWidthHeight)));
     }
 
+    private void GetWidthHeight(IInteractionContext<Unit, (int, int)> context)
+    {
+        context.SetOutput(((int)Width, (int)mainGrid.RowDefinitions[2].ActualHeight));
+    }
     private async Task OpenDialog(IInteractionContext<WindowName, FilterName> context)
     {
         var window = WindowFabric.CreateWindow(context.Input);
