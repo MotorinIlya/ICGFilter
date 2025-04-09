@@ -15,4 +15,5 @@ public enum FilterName
     Orderly,
     WaterColor,
     Turn,
+    ColorVortex,
 }

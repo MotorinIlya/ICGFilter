@@ -18,6 +18,7 @@ public class FilterRepository
         {FilterName.Floyd, new FloydSteinbergFilter()},
         {FilterName.WaterColor, new WaterColorFilter()},
         {FilterName.Orderly, new OrderlyFilter()},
+        {FilterName.ColorVortex, new ColorVortexFilter()},
     };
 
     public IImageFilter GetFilter(FilterName filterName) => _filters[filterName];

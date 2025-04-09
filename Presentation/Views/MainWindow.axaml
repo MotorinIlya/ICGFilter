@@ -265,12 +265,21 @@
                             IsChecked="{Binding Mode,
                                     Converter={StaticResource EnumEqualsConverter},
                                     ConverterParameter={x:Static local:FilterName.WaterColor}}"/>
+                    <RadioButton Content="ColorVortex"
+                            Command="{Binding SetFilter}" 
+                            CommandParameter="{x:Static local:FilterName.ColorVortex}"
+                            GroupName="filters"
+                            ToolTip.Tip="Цветовой вихрь"
+                            IsChecked="{Binding Mode,
+                                    Converter={StaticResource EnumEqualsConverter},
+                                    ConverterParameter={x:Static local:FilterName.ColorVortex}}"/>
                 </StackPanel>
             </Grid>
         </Border>
 
         <Grid Grid.Row="2"
-                x:Name="photo">
+                x:Name="photo"
+                Background="Black">
             <ScrollViewer x:Name="Scroll"
                     HorizontalScrollBarVisibility="Auto"
                     VerticalScrollBarVisibility="Auto"/>
