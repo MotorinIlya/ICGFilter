@@ -5,7 +5,6 @@ using ICGFilter.Domain.Services;
 
 namespace ICGFilter.Domain.Filters;
 
-//исправить, что в матрицах происходит деление интов
 public class BlurFitler : IImageFilter
 {
     private static float[,] _threeKernel =
@@ -43,11 +42,8 @@ public class BlurFitler : IImageFilter
             else if (value % 2 == 1 && value >= 7 && value <= 11)
             {
                 _sizeKernel = value;
-                _actualKernel = MatrixService.CreateMatrix(
-                        (float)1/_sizeKernel, 
+                _actualKernel = MatrixService.CreateMatrix( 
                         _sizeKernel, _sizeKernel);
-                MatrixService.MulToKoef(
-                        _actualKernel, (float)1/(_sizeKernel * _sizeKernel));
             }
         }
     }

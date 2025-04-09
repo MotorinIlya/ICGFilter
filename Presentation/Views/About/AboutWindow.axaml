@@ -112,9 +112,8 @@
                                Margin="0 15"
                                Foreground="#666666"/>
                 </Grid>
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Text="Выполнил Студент 3 курса ФИТа НГУ Моторин Илья"/>
+                <TextBlock Text="Выполнил Студент 3 курса ФИТа НГУ Моторин Илья"
+                            Foreground="#333333"/>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>

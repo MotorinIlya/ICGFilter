@@ -141,6 +141,7 @@
                                 Command="{Binding SetFilter}"
                                 CommandParameter="{x:Static local:FilterName.WaterColor}"/>
                     </MenuItem>
+                    <MenuItem Header="Change Interpolation"/>
                 </MenuItem>
                 <MenuItem Header="About" Click="ShowAbout"/>
             </Menu>
