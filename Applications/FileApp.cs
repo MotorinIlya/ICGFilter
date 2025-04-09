@@ -18,6 +18,6 @@ public class FileApp()
 
     public async Task SaveFileAsync(WriteableBitmap bitmap, IStorageFile file)
     {
-        await FileSaveService.SaveImageAsync(file, bitmap);
+        await FileSaveService.SaveFileAsync(file, bitmap);
     }
 }

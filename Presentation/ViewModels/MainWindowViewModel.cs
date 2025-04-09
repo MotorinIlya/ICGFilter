@@ -67,6 +67,8 @@ public partial class MainWindowViewModel : ReactiveObject
     {
             var bitmap = await _fileApp.LoadFileAsync(file);
             _panelApp.ChangeAllBitmap(bitmap);
+            Mode = FilterName.Original;
+            _lastMode = FilterName.Original;
     }
 
     public async Task SaveFile(IStorageFile file)

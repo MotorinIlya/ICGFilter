@@ -3,6 +3,7 @@ namespace ICGFilter.Domain.Repository;
 public enum FilterName
 {
     Default,
+    Original,
     Inversion,
     BlackWhite,
     Gamma,

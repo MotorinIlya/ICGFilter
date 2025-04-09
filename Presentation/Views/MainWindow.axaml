@@ -173,7 +173,10 @@
                     <RadioButton Content="Original"
                             Command="{Binding SetOriginal}"
                             GroupName="filters"
-                            ToolTip.Tip="Оригинальное изображение"/>
+                            ToolTip.Tip="Оригинальное изображение"
+                            IsChecked="{Binding Mode,
+                                Converter={StaticResource EnumEqualsConverter},
+                                ConverterParameter={x:Static local:FilterName.Original}}"/>
                     <RadioButton Content="Inversion"
                             Command="{Binding SetFilter}" 
                             CommandParameter="{x:Static local:FilterName.Inversion}"
