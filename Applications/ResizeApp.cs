@@ -1,14 +1,23 @@
 using System;
 using Avalonia.Media.Imaging;
+using ICGFilter.Domain.Repository;
 using ICGFilter.Domain.Services;
 
 namespace ICGFilter.Applications;
 
 public class ResizeApp
 {
-    public WriteableBitmap ResizeImage(WriteableBitmap bitmap, int width, int height)
+    public WriteableBitmap ResizeImage(WriteableBitmap bitmap, 
+            int width, int height, ResizeName resizeName)
     {
-        return ImageResizeService.BilinearResize(bitmap, width, height);
+        if (resizeName == ResizeName.Bilinear)
+        {
+            return ImageResizeService.BilinearResize(bitmap, width, height);
+        }
+        else 
+        {
+            return ImageResizeService.NearestNeighborResize(bitmap, width, height);
+        }
     }
 
     public (int, int) Normalize((int, int) newSize, (int, int) oldSize)

@@ -11,17 +11,25 @@ namespace ICGFilter.Presentation.ViewModels;
 public partial class MainWindowViewModel : ReactiveObject
 {
     private FilterName _mode;
+    private ResizeName _resizeMode = ResizeName.Bilinear;
     private FilterName _lastMode = FilterName.Default;
     private FileApp _fileApp;
     private PanelApp _panelApp;
     private FilterApp _filterApp;
     private TurnApp _turnApp;
     private ResizeApp _resizeApp;
+
     public FilterName Mode
     {
         get => _mode;
         set => this.RaiseAndSetIfChanged(ref _mode, value);
     }
+    public ResizeName ResizeMode
+    {
+        get => _resizeMode;
+        set => this.RaiseAndSetIfChanged(ref _resizeMode, value);
+    }
+
     public ReactiveCommand<Unit, Unit> ResizeCommand { get; }
     public ReactiveCommand<WindowName, Unit> OpenShowDialogCommand { get; }
     public Interaction <WindowName, FilterName> DialogInteraction = new();
@@ -49,7 +57,7 @@ public partial class MainWindowViewModel : ReactiveObject
         var result = await ResizeInteraction.Handle(Unit.Default);
         var normalizeResult = _resizeApp.Normalize(result, _panelApp.GetSizeBitmap());
         var bitmap = _resizeApp.ResizeImage(_panelApp.GetBitmap(), 
-                normalizeResult.Item1, normalizeResult.Item2);
+                normalizeResult.Item1, normalizeResult.Item2, ResizeMode);
         _panelApp.SetResizeBitmap(bitmap);
         _panelApp.SetFiltredBitmap(bitmap);
         var turnBitmap = _turnApp.TurnImage(bitmap);
@@ -107,4 +115,6 @@ public partial class MainWindowViewModel : ReactiveObject
         var turnBitmap = _turnApp.TurnImage(_panelApp.GetOriginalBitmap());
         _panelApp.ChangeBitmap(turnBitmap);
     }
+
+    public void SetResize(ResizeName name) => ResizeMode = name;
 }

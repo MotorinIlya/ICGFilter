@@ -141,7 +141,24 @@
                                 Command="{Binding SetFilter}"
                                 CommandParameter="{x:Static local:FilterName.WaterColor}"/>
                     </MenuItem>
-                    <MenuItem Header="Change Interpolation"/>
+                    <MenuItem Header="Change Interpolation">
+                        <RadioButton Content="Bilinear"
+                                    ToolTip.Tip="Билинейная интерполяция"
+                                    GroupName="Inter"
+                                    Command="{Binding SetResize}"
+                                    CommandParameter="{x:Static local:ResizeName.Bilinear}"
+                                    IsChecked="{Binding ResizeMode,
+                                        Converter={StaticResource EnumEqualsConverter},
+                                        ConverterParameter={x:Static local:ResizeName.Bilinear}}"/>
+                        <RadioButton Content="Nearest Neighbor"
+                                    ToolTip.Tip="Ближайший сосед"
+                                    GroupName="Inter"
+                                    Command="{Binding SetResize}"
+                                    CommandParameter="{x:Static local:ResizeName.NearestNeighbor}"
+                                    IsChecked="{Binding ResizeMode,
+                                        Converter={StaticResource EnumEqualsConverter},
+                                        ConverterParameter={x:Static local:ResizeName.NearestNeighbor}}"/>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="About" Click="ShowAbout"/>
             </Menu>
